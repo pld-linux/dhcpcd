@@ -70,7 +70,7 @@ kira zamanýný (lease time) yenilemeye çalýþýr.
 LDFLAGS="-s"; export LDFLAGS
 autoconf
 %configure
-make
+%{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
