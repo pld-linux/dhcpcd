@@ -17,8 +17,7 @@ Patch0:		%{name}-configure.patch
 Patch1:		%{name}-ntpdrift-66136.patch
 Patch2:		%{name}-noMoFakery.patch
 Patch3:		%{name}-noNISfakery.patch
-Patch4:		%{name}-pid_path_fix.patch
-Patch5:		%{name}-other_path_fix.patch
+Patch4:		%{name}-paths_fixes.patch
 BuildRequires:	automake
 BuildRequires:	autoconf
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -96,20 +95,20 @@ kira zamanýný (lease time) yenilemeye çalýþýr.
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
-%patch4 -p0
-%patch5 -p0
+%patch4 -p1
 
 %build
 rm -f missing
-aclocal
+%{__aclocal}
 %{__autoconf}
 %{__automake}
 %configure
-%{__make} all mandir=%{_mandir} sbindir=%{_sbindir}
+%{__make} all \
+	mandir=%{_mandir} \
+	sbindir=%{_sbindir}
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT%{_sysconfdir}/dhcpc
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT \
@@ -122,6 +121,6 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc README AUTHORS ChangeLog NEWS
-%dir %{_sysconfdir}/dhcpc
 %attr(755,root,root) %{_sbindir}/dhcpcd
+%dir %{_var}/lib/dhcpc
 %{_mandir}/man8/dhcpcd.8*
