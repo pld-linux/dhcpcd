@@ -1,0 +1,26 @@
+--- dhcpcd-1.3.18-pl7/configure.in~	Tue Apr 25 06:18:17 2000
++++ dhcpcd-1.3.18-pl7/configure.in	Tue May  9 20:05:02 2000
+@@ -35,23 +35,6 @@
+ OSNAME=`uname`
+ ARCH=`uname -m`
+ 
+-case $OSNAME in
+-	Linux)	CFLAGS=' -O2 -fomit-frame-pointer -Wall'
+-		;;
+-	*)	CFLAGS=
+-esac
+-
+-case $ARCH in
+-	i486)	CFLAGS="$CFLAGS -m486 -malign-loops=2 -malign-jumps=2 -malign-functions=2"
+-		;;
+-	i[356]86)	CFLAGS=$CFLAGS
+-		;;
+-	*)	CFLAGS=$CFLAGS
+-		;;
+-esac
+-
+-LDFLAGS=' -s -O2 -static'
+-
+ dnl
+ dnl Checks for programs.
+ dnl
