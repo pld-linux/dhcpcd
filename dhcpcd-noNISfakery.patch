@@ -1,6 +1,6 @@
---- dhcpcd-1.3.21-pl2/client.c.sopwith	Thu Jan 31 18:58:26 2002
-+++ dhcpcd-1.3.21-pl2/client.c	Thu Jan 31 19:01:35 2002
-@@ -764,18 +764,14 @@
+--- ./dhcpconfig.c.org3	Mon Jan  6 12:36:42 2003
++++ ./dhcpconfig.c	Mon Jan  6 12:39:21 2003
+@@ -381,18 +381,14 @@
      * because the resolver won't notice the change in resolv.conf */
        (void)res_init();
      }

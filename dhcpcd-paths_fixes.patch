@@ -1,49 +1,6 @@
---- dhcpcd-1.3.22-pl1/pathnames.h~	Thu Jan 17 04:18:10 2002
-+++ dhcpcd-1.3.22-pl1/pathnames.h	Mon Sep  9 19:49:26 2002
-@@ -26,8 +26,8 @@
- #include <paths.h>
- #include "dhcpcd.h"
- 
--#define PID_FILE_PATH		"%s/"PROGRAM_NAME"-%s.pid"
--#define CONFIG_DIR		"/etc/dhcpc"
-+#define PID_FILE_PATH		"/var/run/"PROGRAM_NAME"-%s.pid"
-+#define CONFIG_DIR		"/var/lib/dhcpc"
- #define DHCP_CACHE_FILE		"%s/"PROGRAM_NAME"-%s.cache"
- #define DHCP_HOSTINFO		"%s/"PROGRAM_NAME"-%s.info"
- #define EXEC_ON_CHANGE		"%s/"PROGRAM_NAME".exe"
---- dhcpcd-1.3.22-pl1/dhcpcd.8~	Mon Sep  9 19:50:54 2002
-+++ dhcpcd-1.3.22-pl1/dhcpcd.8	Mon Sep  9 19:50:54 2002
-@@ -136,7 +136,7 @@
- will use
- .I <ConfigDir>
- directory instead of default
--.I /etc/dhcpc
-+.I /var/lib/dhcpc
- to store configuration information.
- .TP
- .BI \-R
-@@ -265,7 +265,7 @@
- .SH FILES
- .PD 0
- .TP
--.BI /etc/dhcpc
-+.BI /var/lib/dhcpc
- Default 
- .I <ConfigDir>
- directory used for storing files
-@@ -363,7 +363,7 @@
- .B dhcpcd
- exits for any reason.
- .TP
--.BI <ConfigDir>/dhcpcd-<interface>.pid
-+.BI /var/run/dhcpcd-<interface>.pid
- file containing the process id of
- .B dhcpcd.
- The word
-diff -ur dhcpcd-1.3.22-pl1.orig/client.c dhcpcd-1.3.22-pl1/client.c
---- dhcpcd-1.3.22-pl1.orig/client.c	Mon Jan 21 00:46:27 2002
-+++ dhcpcd-1.3.22-pl1/client.c	Fri Oct 11 18:14:08 2002
-@@ -1670,7 +1670,7 @@
+--- ./dhcpcd.c.org4	Wed Jan  1 02:26:32 2003
++++ ./dhcpcd.c	Mon Jan  6 12:55:05 2003
+@@ -88,7 +88,7 @@
  {
    int o;
    char pidfile[64];
@@ -52,9 +9,61 @@ diff -ur dhcpcd-1.3.22-pl1.orig/client.c dhcpcd-1.3.22-pl1/client.c
    o=open(pidfile,O_RDONLY);
    if ( o == -1 ) return;
    close(o);
-diff -ur dhcpcd-1.3.22-pl1.orig/signals.c dhcpcd-1.3.22-pl1/signals.c
---- dhcpcd-1.3.22-pl1.orig/signals.c	Sun Jan 20 23:51:46 2002
-+++ dhcpcd-1.3.22-pl1/signals.c	Fri Oct 11 18:13:21 2002
+--- ./pathnames.h.org4	Sun Sep 29 17:55:31 2002
++++ ./pathnames.h	Mon Jan  6 12:50:24 2003
+@@ -26,7 +26,7 @@
+ #include <paths.h>
+ #include "dhcpcd.h"
+ 
+-#define PID_FILE_PATH		"%s/"PROGRAM_NAME"-%s.pid"
++#define PID_FILE_PATH		"/var/run/"PROGRAM_NAME"-%s.pid"
+ #define DHCP_CACHE_FILE		"%s/"PROGRAM_NAME"-%s.cache"
+ #define DHCP_HOSTINFO		"%s/"PROGRAM_NAME"-%s.info"
+ #define EXEC_ON_CHANGE		"%s/"PROGRAM_NAME".exe"
+@@ -37,10 +37,10 @@
+ #define NIS_CONF		"/etc/config/yp.conf"
+ #define NTP_CONF		"/etc/config/ntp.conf"
+ #else
+-#define CONFIG_DIR		"/etc/dhcpc"
++#define CONFIG_DIR		"/var/lib/dhcpc"
+ #define RESOLV_CONF		"/etc/resolv.conf"
+ #define NIS_CONF		"/etc/yp.conf"
+-#define NTP_CONF		"/etc/ntp.conf"
++#define NTP_CONF		"/etc/ntp/ntp.conf"
+ #endif
+ 
+ #endif
+--- ./dhcpcd.8.org4	Wed Jan  1 02:31:31 2003
++++ ./dhcpcd.8	Mon Jan  6 12:52:50 2003
+@@ -137,7 +137,7 @@
+ will use
+ .I <ConfigDir>
+ directory instead of default
+-.I /etc/dhcpc
++.I /var/lib/dhcpc
+ to store configuration information.
+ .TP
+ .BI \-S
+@@ -281,7 +281,7 @@
+ .SH FILES
+ .PD 0
+ .TP
+-.BI /etc/dhcpc
++.BI /var/lib/dhcpc
+ Default 
+ .I <ConfigDir>
+ directory used for storing files
+@@ -379,7 +379,7 @@
+ .B dhcpcd
+ exits for any reason.
+ .TP
+-.BI <ConfigDir>/dhcpcd-<interface>.pid
++.BI  /var/run/dhcpcd-<interface>.pid
+ file containing the process id of
+ .B dhcpcd.
+ The word
+--- ./signals.c.org4	Sun Jan 20 23:51:46 2002
++++ ./signals.c	Mon Jan  6 12:56:58 2003
 @@ -44,7 +44,7 @@
    FILE *fp;
    pid_t pid;
