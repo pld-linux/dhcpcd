@@ -1,11 +1,11 @@
-%define		ver	1.3.19-pl8
+%define	ver	1.3.19-pl9
 Summary:	DHCP Client Daemon
 Summary(de):	DHCPC-Dämon
 Summary(fr):	Démon DHCPC
 Summary(pl):	Klient (daemon) DHCP
 Summary(tr):	DHCPC sunucu süreçi (daemon)
 Name:		dhcpcd
-Version:	1.3.19pl8
+Version:	%(echo %{ver} | sed -e "s#-##")
 Release:	1
 License:	GPL
 Vendor:		Sergei Viznyuk <sv@phystech.com>
@@ -74,7 +74,7 @@ kira zamanýný (lease time) yenilemeye çalýþýr.
 rm -f config.cache
 aclocal
 autoconf
-automake -a -c -i
+automake -a -c
 %configure
 %{__make}
 
