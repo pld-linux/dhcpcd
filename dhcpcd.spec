@@ -1,6 +1,6 @@
 Summary:	DHCP Client Daemon
 Summary(de):	DHCPC-Dämon
-Summary(es):	Servidor DHCPC
+Summary(es):	Cliente (daemon) DHCP
 Summary(fr):	Démon DHCPC
 Summary(pl):	Klient (daemon) DHCP
 Summary(pt_BR):	Servidor DHCPC
