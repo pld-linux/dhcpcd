@@ -6,13 +6,14 @@ Summary(pl):	Klient (daemon) DHCP
 Summary(tr):	DHCPC sunucu süreçi (daemon)
 Name:		dhcpcd
 Version:	%(echo %{ver} | sed -e "s#-##")
-Release:	1
+Release:	2
 License:	GPL
 Vendor:		Sergei Viznyuk <sv@phystech.com>
 Group:		Networking/Daemons
+Group(de):	Netzwerkwesen/Server
 Group(pl):	Sieciowe/Serwery
 Source0:	http://www.phystech.com/ftp/%{name}-%{ver}.tar.gz
-Patch0:		dhcpcd-configure.patch
+Patch0:		%{name}-configure.patch
 BuildRequires:	automake
 BuildRequires:	autoconf
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -44,8 +45,7 @@ bzw. draft-ietf-dhc-dhcp-09 zu verlängern.
 
 %description -l fr
 dhcpcd est une implantation du client DHCP spécifié dans les
-draft-ietf-dhc-dhcp-09 (sans l'option -r) et RFC1541 (avec l'option
--r).
+draft-ietf-dhc-dhcp-09 (sans l'option -r) et RFC1541 (avec l'option -r).
 
 Il obtient l'information sur l'hôte (adresse IP, masque réseau,
 adresse de diffusion, etc.) à partir d'un serveur DHCP et configure
@@ -69,24 +69,24 @@ sunucusundan alýr ve üzerinde çalýþtýðý makinanýn að arayüzünü
 ayarlar. Ayrýca RFC1541 veya draft-ietf-dhc-dhcp-09'a uygun olarak,
 kira zamanýný (lease time) yenilemeye çalýþýr.
 
-%if %{?BOOT:1}%{!?BOOT:0}
 %package BOOT
 Summary:	dhcpcd for bootdisk
 Group:		Networking/Daemons
+Group(de):	Netzwerkwesen/Server
 Group(pl):	Sieciowe/Serwery
-%description BOOT
-%endif
 
+%description BOOT
+dhcpcd for bootdisk.
 
 %prep
 %setup -q -n %{name}-%{ver}
 %patch -p1
 
 %build
-%if %{?BOOT:1}%{!?BOOT:0}
 aclocal
 autoconf
 automake -a -c
+%if %{?BOOT:1}%{!?BOOT:0}
 %configure
 %{__make} \
 	CFLAGS="-m386 -I/usr/lib/bootdisk%{_includedir} -Os" \
@@ -94,12 +94,9 @@ automake -a -c
 	LIBS="%{_libdir}/bootdisk%{_libdir}/crt0.o %{_libdir}/bootdisk%{_libdir}/libc.a -lgcc"
 mv -f %{name} %{name}-BOOT
 %{__make} distclean
+rm -f config.cache
 %endif
 
-rm -f config.cache
-aclocal
-autoconf
-automake -a -c
 %configure
 %{__make}
 
@@ -108,8 +105,8 @@ rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{_sysconfdir}/dhcpc
 
 %if %{?BOOT:1}%{!?BOOT:0}
-install -d $RPM_BUILD_ROOT%{_libdir}/bootdisk/sbin
-install %{name}-BOOT $RPM_BUILD_ROOT%{_libdir}/bootdisk/sbin/%{name}
+install -d $RPM_BUILD_ROOT%{_libdir}/bootdisk%{_sbindir}
+install %{name}-BOOT $RPM_BUILD_ROOT%{_libdir}/bootdisk%{_sbindir}/%{name}
 %endif
 
 %{__make} install DESTDIR=$RPM_BUILD_ROOT
@@ -128,5 +125,6 @@ rm -rf $RPM_BUILD_ROOT
 
 %if %{?BOOT:1}%{!?BOOT:0}
 %files BOOT
-%attr(755,root,root) %{_libdir}/bootdisk/sbin/*
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/bootdisk%{_sbindir}/*
 %endif
