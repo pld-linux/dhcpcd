@@ -28,7 +28,7 @@ BuildRequires:	uClibc-static
 %define embed_cc	%{_arch}-uclibc-cc
 %define embed_cflags	%{rpmcflags} -Os
 
-%define		_sbindir	/sbin
+%define	_sbindir	/sbin
 
 %description
 dhcpcd is an implementation of the DHCP client specified in
@@ -84,6 +84,9 @@ Group(pl):	Sieciowe/Serwery
 
 %description embed
 dhcpcd for bootdisk.
+
+%description embed -l pl
+dhcpcd na bootkietkê.
 
 %prep
 %setup -q -n %{name}-%{ver}
