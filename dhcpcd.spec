@@ -16,6 +16,9 @@ Patch0:		dhcpcd-configure.patch
 BuildRequires:	automake
 BuildRequires:	autoconf
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
+%if %{?BOOT:1}%{!?BOOT:0}
+#BuildRequires:	glibc-static
+%endif
 
 %define		_sbindir	/sbin
 
@@ -66,11 +69,33 @@ sunucusundan alýr ve üzerinde çalýþtýðý makinanýn að arayüzünü
 ayarlar. Ayrýca RFC1541 veya draft-ietf-dhc-dhcp-09'a uygun olarak,
 kira zamanýný (lease time) yenilemeye çalýþýr.
 
+%if %{?BOOT:1}%{!?BOOT:0}
+%package BOOT
+Summary:	dhcpcd for bootdisk
+Group:		Networking/Daemons
+Group(pl):	Sieciowe/Serwery
+%description BOOT
+%endif
+
+
 %prep
 %setup -q -n %{name}-%{ver}
 %patch -p1
 
 %build
+%if %{?BOOT:1}%{!?BOOT:0}
+aclocal
+autoconf
+automake -a -c
+%configure
+%{__make} \
+	CFLAGS="-m386 -I/usr/lib/bootdisk%{_includedir} -Os" \
+	LDFLAGS="-nostdlib -s" \
+	LIBS="%{_libdir}/bootdisk%{_libdir}/crt0.o %{_libdir}/bootdisk%{_libdir}/libc.a -lgcc"
+mv -f %{name} %{name}-BOOT
+%{__make} distclean
+%endif
+
 rm -f config.cache
 aclocal
 autoconf
@@ -81,6 +106,11 @@ automake -a -c
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{_sysconfdir}/dhcpc
+
+%if %{?BOOT:1}%{!?BOOT:0}
+install -d $RPM_BUILD_ROOT%{_libdir}/bootdisk/sbin
+install -s %{name}-BOOT $RPM_BUILD_ROOT%{_libdir}/bootdisk/sbin/%{name}
+%endif
 
 %{__make} install DESTDIR=$RPM_BUILD_ROOT
 
@@ -95,3 +125,8 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_sysconfdir}/dhcpc
 %attr(755,root,root) %{_sbindir}/dhcpcd
 %{_mandir}/man8/dhcpcd.8*
+
+%if %{?BOOT:1}%{!?BOOT:0}
+%files BOOT
+%attr(755,root,root) %{_libdir}/bootdisk/sbin/*
+%endif
