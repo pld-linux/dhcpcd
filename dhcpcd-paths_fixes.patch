@@ -31,12 +31,3 @@
  Default 
  .I <ConfigDir>
  directory used for storing files
-@@ -363,7 +363,7 @@
- .B dhcpcd
- exits for any reason.
- .TP
--.BI <ConfigDir>/dhcpcd-<interface>.pid
-+.BI <PidDir>/dhcpcd-<interface>.pid
- file containing the process id of
- .B dhcpcd.
- The word
