@@ -23,7 +23,7 @@ etc.) from a DHCP server and configures the network interface of the
 machine on which it  is  running.  It also tries to renew the lease time
 according to RFC1541 or draft-ietf-dhc-dhcp-09.
 
-%description - pl
+%description -l pl
 dhcpd jest implementacja klienta DHCP, opisan± w draft-ietf-dhc-dhcp-09
 (kiedy nie podaje siê opcji -r) oraz RFC1544 (kiedy podaje siê opcjê -r).
 
