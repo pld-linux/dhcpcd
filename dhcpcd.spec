@@ -1,4 +1,3 @@
-%define	ver	1.3.22-pl1
 Summary:	DHCP Client Daemon
 Summary(de):	DHCPC-Dämon
 Summary(es):	Servidor DHCPC
@@ -7,6 +6,7 @@ Summary(pl):	Klient (daemon) DHCP
 Summary(pt_BR):	Servidor DHCPC
 Summary(tr):	DHCPC sunucu süreçi (daemon)
 Name:		dhcpcd
+%define	ver	1.3.22-pl1
 Version:	%(echo %{ver} | sed -e "s#-##")
 Release:	13
 License:	GPL v2
@@ -109,6 +109,7 @@ rm -f missing
 
 %install
 rm -rf $RPM_BUILD_ROOT
+install -d $RPM_BUILD_ROOT%{_var}/lib/dhcpc
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT \
