@@ -8,11 +8,11 @@ Name:		dhcpcd
 Version:	1.3.19pl8
 Release:	1
 License:	GPL
+Vendor:		Sergei Viznyuk <sv@phystech.com>
 Group:		Networking/Daemons
 Group(pl):	Sieciowe/Serwery
 Source0:	http://www.phystech.com/ftp/%{name}-%{ver}.tar.gz
 Patch0:		dhcpcd-configure.patch
-Vendor:		Sergei Viznyuk <sv@phystech.com>
 BuildRequires:	automake
 BuildRequires:	autoconf
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -72,25 +72,26 @@ kira zamanýný (lease time) yenilemeye çalýþýr.
 
 %build
 rm -f config.cache
-automake -a -c -i
 aclocal
 autoconf
+automake -a -c -i
 %configure
 %{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
+install -d $RPM_BUILD_ROOT%{_sysconfdir}/dhcpc
 
 %{__make} install DESTDIR=$RPM_BUILD_ROOT
 
-install -d $RPM_BUILD_ROOT%{_sysconfdir}/dhcpc
+gzip -9nf README AUTHORS ChangeLog NEWS
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc README AUTHORS ChangeLog NEWS
+%doc *.gz
 %dir %{_sysconfdir}/dhcpc
 %attr(755,root,root) %{_sbindir}/dhcpcd
 %{_mandir}/man8/dhcpcd.8*
