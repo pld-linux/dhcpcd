@@ -1,0 +1,11 @@
+--- dhcpcd-1.3.22-pl1/client.c.sopwith	Thu Jun 20 15:15:49 2002
++++ dhcpcd-1.3.22-pl1/client.c	Thu Jun 20 15:16:34 2002
+@@ -902,7 +902,7 @@
+ 	      fprintf(f, "fudge 127.127.1.0 stratum 3\n");
+  	      fprintf(f, "server 127.127.1.0\n");
+ 	    }
+- 	  fprintf(f, "driftfile /etc/ntp.drift\n");
++ 	  fprintf(f, "driftfile /etc/ntp/drift\n");
+  	  fprintf(f, "logfile /var/log/ntp.log\n");
+  	  fclose(f);
+  	}

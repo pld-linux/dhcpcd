@@ -1,0 +1,20 @@
+--- dhcpcd-1.3.21-pl2/client.c.sopwith	Tue Feb  5 14:47:35 2002
++++ dhcpcd-1.3.21-pl2/client.c	Tue Feb  5 14:50:23 2002
+@@ -718,7 +718,7 @@
+     ((unsigned char *)&DhcpIface.ciaddr)[1],
+     ((unsigned char *)&DhcpIface.ciaddr)[2],
+     ((unsigned char *)&DhcpIface.ciaddr)[3]);
+-  if ( ReplResolvConf )
++  if ( ReplResolvConf && DhcpOptions.len[dns])
+     {
+       resolv_renamed=1+rename(RESOLV_CONF,""RESOLV_CONF".sv");
+       f=fopen(RESOLV_CONF,"w");
+@@ -785,7 +785,7 @@
+       else
+ 	syslog(LOG_ERR,"dhcpConfig: fopen: %m\n");
+     }
+-  if ( ReplNTPConf )
++  if ( ReplNTPConf && DhcpOptions.len[ntpServers] >= 4)
+     {
+       ntp_renamed=1+rename(NTP_CONF,""NTP_CONF".sv");
+       f=fopen(NTP_CONF,"w");

@@ -1,0 +1,23 @@
+--- dhcpcd-1.3.21-pl2/client.c.sopwith	Thu Jan 31 18:58:26 2002
++++ dhcpcd-1.3.21-pl2/client.c	Thu Jan 31 19:01:35 2002
+@@ -764,18 +764,14 @@
+     * because the resolver won't notice the change in resolv.conf */
+       (void)res_init();
+     }
+-  if ( ReplNISConf )
++  if ( ReplNISConf && DhcpOptions.len[nisDomainName] )
+     {
+       yp_renamed=1+rename(NIS_CONF,""NIS_CONF".sv");
+       f=fopen(NIS_CONF,"w");
+       if ( f )
+ 	{
+ 	  int i;
+-	  char *domain=NULL;
+-	  if ( DhcpOptions.len[nisDomainName] )
+-	    domain=(char *)DhcpOptions.val[nisDomainName];
+-	  else
+-	    domain=(char *)DhcpOptions.val[domainName];
++	  char *domain=(char *)DhcpOptions.val[nisDomainName]; setdomainname(domain, strlen(domain)+1);
+ 	  for (i=0;i<DhcpOptions.len[nisServers];i+=4)
+ 	    fprintf(f,"domain %s server %u.%u.%u.%u\n",(domain?domain:"localdomain"),
+ 	    ((unsigned char *)DhcpOptions.val[nisServers])[i],
