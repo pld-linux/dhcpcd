@@ -1,0 +1,11 @@
+--- pathnames.org	Tue Aug  6 13:17:20 2002
++++ pathnames.h	Tue Aug  6 13:16:34 2002
+@@ -26,7 +26,7 @@
+ #include <paths.h>
+ #include "dhcpcd.h"
+ 
+-#define PID_FILE_PATH		"%s/"PROGRAM_NAME"-%s.pid"
++#define PID_FILE_PATH		"/var/run/"PROGRAM_NAME".pid"
+ #define CONFIG_DIR		"/etc/dhcpc"
+ #define DHCP_CACHE_FILE		"%s/"PROGRAM_NAME"-%s.cache"
+ #define DHCP_HOSTINFO		"%s/"PROGRAM_NAME"-%s.info"
