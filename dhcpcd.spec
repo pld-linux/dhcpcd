@@ -17,6 +17,7 @@ Patch0:		%{name}-configure.patch
 Patch1:		%{name}-ntpdrift-66136.patch
 Patch2:		%{name}-noMoFakery.patch
 Patch3:		%{name}-noNISfakery.patch
+Patch4:		%{name}-pid_path_fix.patch
 BuildRequires:	automake
 BuildRequires:	autoconf
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -94,6 +95,7 @@ kira zamanýný (lease time) yenilemeye çalýþýr.
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
+%patch4 -p0
 
 %build
 rm -f missing
