@@ -1,7 +1,6 @@
-diff -urN dhcpcd-1.3.19-pl7.org/configure.in dhcpcd-1.3.19-pl7/configure.in
---- dhcpcd-1.3.19-pl7.org/configure.in	Sat Feb 24 01:52:12 2001
-+++ dhcpcd-1.3.19-pl7/configure.in	Sat Feb 24 01:52:23 2001
-@@ -30,22 +30,6 @@
+--- dhcpcd-1.3.22-pl1/configure.in~	Thu Jul 18 23:17:29 2002
++++ dhcpcd-1.3.22-pl1/configure.in	Thu Jul 18 23:17:29 2002
+@@ -30,26 +30,6 @@
  AC_CANONICAL_HOST
  
  dnl
@@ -9,16 +8,20 @@ diff -urN dhcpcd-1.3.19-pl7.org/configure.in dhcpcd-1.3.19-pl7/configure.in
 -dnl
 -
 -case $host_os in
--	linux*)	CFLAGS="$CFLAGS -fomit-frame-pointer -Wall $ADDS"
+-	linux*)	CFLAGS="$CFLAGS -O2 -fomit-frame-pointer -Wall $ADDS"
 -		;;
 -esac
 -
 -case $host_cpu in
--	i486)	CFLAGS="$CFLAGS -m486 -malign-loops=2 -malign-jumps=2 -malign-functions=2"
+-	i486)	CFLAGS="$CFLAGS -march=i486"
+-		;;
+-	i586)	CFLAGS="$CFLAGS -march=i586"
+-		;;
+-	i686)	CFLAGS="$CFLAGS -march=i686"
 -		;;
 -esac
 -
--LDFLAGS="-s"
+-LDFLAGS="-s -O2"
 -
 -dnl
  dnl Checks for programs.
