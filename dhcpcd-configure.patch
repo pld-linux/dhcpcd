@@ -1,11 +1,11 @@
---- dhcpcd-1.3.18-pl7/configure.in~	Tue Apr 25 06:18:17 2000
-+++ dhcpcd-1.3.18-pl7/configure.in	Tue May  9 20:05:02 2000
-@@ -35,23 +35,6 @@
- OSNAME=`uname`
- ARCH=`uname -m`
+--- dhcpcd-1.3.19-pl2/configure.in~	Thu Oct 12 03:29:08 2000
++++ dhcpcd-1.3.19-pl2/configure.in	Wed Dec 13 18:37:02 2000
+@@ -39,23 +39,6 @@
+ ADDS+= -DOLD_LINUX_VERSION
+ fi
  
 -case $OSNAME in
--	Linux)	CFLAGS=' -O2 -fomit-frame-pointer -Wall'
+-	Linux)	CFLAGS=" -O2 -fomit-frame-pointer -Wall $ADDS"
 -		;;
 -	*)	CFLAGS=
 -esac
@@ -19,7 +19,7 @@
 -		;;
 -esac
 -
--LDFLAGS=' -s -O2 -static'
+-LDFLAGS=' -s -O2'
 -
  dnl
  dnl Checks for programs.
