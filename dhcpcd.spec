@@ -12,8 +12,6 @@ Release:	3
 License:	GPL
 Vendor:		Sergei Viznyuk <sv@phystech.com>
 Group:		Networking/Daemons
-Group(de):	Netzwerkwesen/Server
-Group(pl):	Sieciowe/Serwery
 Source0:	http://www.phystech.com/ftp/%{name}-%{ver}.tar.gz
 Patch0:		%{name}-configure.patch
 BuildRequires:	automake
@@ -79,8 +77,6 @@ kira zamanýný (lease time) yenilemeye çalýþýr.
 %package embed
 Summary:	dhcpcd for bootdisk
 Group:		Networking/Daemons
-Group(de):	Netzwerkwesen/Server
-Group(pl):	Sieciowe/Serwery
 
 %description embed
 dhcpcd for bootdisk.
