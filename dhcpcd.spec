@@ -6,9 +6,9 @@ Summary(pl):	Klient (daemon) DHCP
 Summary(pt_BR):	Servidor DHCPC
 Summary(tr):	DHCPC sunucu süreçi (daemon)
 Name:		dhcpcd
-%define	ver	1.3.22-pl1
+%define	ver	1.3.22-pl4
 Version:	%(echo %{ver} | sed -e "s#-##")
-Release:	15
+Release:	1
 License:	GPL v2
 Group:		Networking/Daemons
 Source0:	http://www.phystech.com/ftp/%{name}-%{ver}.tar.gz
