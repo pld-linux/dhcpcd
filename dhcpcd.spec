@@ -43,6 +43,8 @@ rm -rf $RPM_BUILD_ROOT
 
 make install DESTDIR=$RPM_BUILD_ROOT
 
+install -d $RPM_BUILD_ROOT/etc/dhcpc
+
 gzip -9nf $RPM_BUILD_ROOT%{_mandir}/man8/* \
 	README AUTHORS ChangeLog NEWS
 
