@@ -10,7 +10,6 @@ Name:		dhcpcd
 Version:	%(echo %{ver} | sed -e "s#-##")
 Release:	15
 License:	GPL v2
-Vendor:		Sergei Viznyuk <sv@phystech.com>
 Group:		Networking/Daemons
 Source0:	http://www.phystech.com/ftp/%{name}-%{ver}.tar.gz
 Patch0:		%{name}-configure.patch
