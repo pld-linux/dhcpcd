@@ -71,7 +71,7 @@ draft-ietf-dhc-dhcp-09 (kiedy nie podaje siê opcji -r) oraz RFC1544
 
 Pobiera on informacjê o komputerze (adres IP, maska sieci, adres
 rozg³oszeniowy itd.) i konfiguruje interfejs sieciowy maszyny, na
-której jest uruchomiony. Próbuje równie¿ od¶wiezyæ czas przestoju
+której jest uruchomiony. Próbuje równie¿ od¶wie¿yæ czas przestoju
 zgodnie z RFC1541 oraz draft-ietf-dhc-dhcp-09.
 
 %description -l pt_BR
