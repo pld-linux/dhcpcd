@@ -7,8 +7,8 @@ Summary(pt_BR):	Servidor DHCPC
 Summary(tr):	DHCPC sunucu süreçi (daemon)
 Name:		dhcpcd
 %define	ver	1.3.22-pl4
-Version:	%(echo %{ver} | sed -e "s#-##")
-Release:	1
+Version:	%(echo %{ver} | tr -d - )
+Release:	2
 License:	GPL v2
 Group:		Networking/Daemons
 Source0:	http://www.phystech.com/ftp/%{name}-%{ver}.tar.gz
