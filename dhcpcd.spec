@@ -33,10 +33,10 @@ dhcpcd is an implementation of the DHCP client specified in
 draft-ietf-dhc-dhcp-09 (when -r option is not specified) and RFC1541
 (when -r option is specified).
 
-It gets the host information (IP address, netmask, broadcast
-address, etc.) from a DHCP server and configures the network interface
-of the machine on which it is running. It also tries to renew the
-lease time according to RFC1541 or draft-ietf-dhc-dhcp-09.
+It gets the host information (IP address, netmask, broadcast address,
+etc.) from a DHCP server and configures the network interface of the
+machine on which it is running. It also tries to renew the lease time
+according to RFC1541 or draft-ietf-dhc-dhcp-09.
 
 %description -l de
 dhcpcd ist eine Implementierung des DHCP-Client, spezifiziert in
@@ -50,7 +50,8 @@ bzw. draft-ietf-dhc-dhcp-09 zu verlängern.
 
 %description -l fr
 dhcpcd est une implantation du client DHCP spécifié dans les
-draft-ietf-dhc-dhcp-09 (sans l'option -r) et RFC1541 (avec l'option -r).
+draft-ietf-dhc-dhcp-09 (sans l'option -r) et RFC1541 (avec l'option
+-r).
 
 Il obtient l'information sur l'hôte (adresse IP, masque réseau,
 adresse de diffusion, etc.) à partir d'un serveur DHCP et configure
