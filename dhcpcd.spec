@@ -12,6 +12,7 @@ Release:	1
 License:	GPL v2
 Group:		Networking/Daemons
 Source0:	http://www.phystech.com/ftp/%{name}-%{ver}.tar.gz
+# Source0-md5:	dd627a121e43835bead3ffef5b1a72fd
 Patch0:		%{name}-configure.patch
 Patch1:		%{name}-ntpdrift-66136.patch
 Patch2:		%{name}-noMoFakery.patch
