@@ -8,7 +8,7 @@ Summary(tr):	DHCPC sunucu süreçi (daemon)
 Name:		dhcpcd
 %define	ver	1.3.22-pl1
 Version:	%(echo %{ver} | sed -e "s#-##")
-Release:	13
+Release:	14
 License:	GPL v2
 Vendor:		Sergei Viznyuk <sv@phystech.com>
 Group:		Networking/Daemons
