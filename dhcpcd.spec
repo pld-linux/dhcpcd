@@ -1,11 +1,13 @@
 Summary:	DHCP Client Daemon
+Summary(pl):	Klient (daemon) DHCP
 Name:		dhcpcd
 Version:	1.3.18pl7
 Release:	1
 License:	GPL
-Group:		System Environment/Daemons
-Source:		ftp://sunsite.unc.edu/pub/Linux/system/network/daemons/%{name}-1.3.18-pl7.tar.gz
-Patch:		dhcpcd-configure.patch
+Group:		Networking/Daemons
+Group(pl):	Sieciowe/Serwery
+Source0:	ftp://sunsite.unc.edu/pub/Linux/system/network/daemons/%{name}-1.3.18-pl7.tar.gz
+Patch0:		dhcpcd-configure.patch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_sbindir	/sbin
@@ -34,6 +36,7 @@ RFC1541 oraz draft-ietf-dhc-dhcp-09.
 %patch -p1
 
 %build
+LDFLAGS="-s"; export LDFLAGS
 autoconf
 %configure
 make
@@ -43,7 +46,7 @@ rm -rf $RPM_BUILD_ROOT
 
 make install DESTDIR=$RPM_BUILD_ROOT
 
-install -d $RPM_BUILD_ROOT/etc/dhcpc
+install -d $RPM_BUILD_ROOT%{_sysconfdir}/dhcpc
 
 gzip -9nf $RPM_BUILD_ROOT%{_mandir}/man8/* \
 	README AUTHORS ChangeLog NEWS
@@ -54,6 +57,6 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc {README,AUTHORS,ChangeLog,NEWS}.gz
-%dir /etc/dhcpc
-%attr(755,root,root) /sbin/dhcpcd
+%dir %{_sysconfdir}/dhcpc
+%attr(755,root,root) %{_sbindir}/dhcpcd
 %{_mandir}/man8/dhcpcd.8.gz
