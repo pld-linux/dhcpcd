@@ -1,5 +1,3 @@
-# conditional build:
-# _without_embed - don't build uClibc version
 %define	ver	1.3.20-pl0
 Summary:	DHCP Client Daemon
 Summary(de):	DHCPC-Dämon
@@ -8,7 +6,7 @@ Summary(pl):	Klient (daemon) DHCP
 Summary(tr):	DHCPC sunucu süreçi (daemon)
 Name:		dhcpcd
 Version:	%(echo %{ver} | sed -e "s#-##")
-Release:	3
+Release:	4
 License:	GPL
 Vendor:		Sergei Viznyuk <sv@phystech.com>
 Group:		Networking/Daemons
@@ -17,14 +15,6 @@ Patch0:		%{name}-configure.patch
 BuildRequires:	automake
 BuildRequires:	autoconf
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
-%if %{!?_without_embed:1}%{?_without_embed:0}
-BuildRequires:	uClibc-devel
-BuildRequires:	uClibc-static
-%endif
-
-%define embed_path	/usr/lib/embed
-%define embed_cc	%{_arch}-uclibc-cc
-%define embed_cflags	%{rpmcflags} -Os
 
 %define	_sbindir	/sbin
 
@@ -75,16 +65,6 @@ sunucusundan alýr ve üzerinde çalýþtýðý makinanýn að arayüzünü
 ayarlar. Ayrýca RFC1541 veya draft-ietf-dhc-dhcp-09'a uygun olarak,
 kira zamanýný (lease time) yenilemeye çalýþýr.
 
-%package embed
-Summary:	dhcpcd for bootdisk
-Group:		Networking/Daemons
-
-%description embed
-dhcpcd for bootdisk.
-
-%description embed -l pl
-dhcpcd na bootkietkê.
-
 %prep
 %setup -q -n %{name}-%{ver}
 %patch -p1
@@ -93,20 +73,6 @@ dhcpcd na bootkietkê.
 aclocal
 autoconf
 automake -a -c
-%if %{!?_without_embed:1}%{?_without_embed:0}
-%configure
-%{__make} \
-	CFLAGS="%{embed_cflags}" \
-	CC=%{embed_cc}
-mv -f %{name} %{name}-embed-shared
-%{__make} \
-	CFLAGS="%{embed_cflags}" \
-	LDFLAGS="-static" \
-	CC=%{embed_cc}
-mv -f %{name} %{name}-embed-static
-%{__make} distclean
-rm -f config.cache
-%endif
 
 %configure
 %{__make}
@@ -114,12 +80,6 @@ rm -f config.cache
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{_sysconfdir}/dhcpc
-
-%if %{!?_without_embed:1}%{?_without_embed:0}
-install -d $RPM_BUILD_ROOT%{embed_path}/{shared,static}
-install %{name}-embed-shared $RPM_BUILD_ROOT%{embed_path}/shared/%{name}
-install %{name}-embed-static $RPM_BUILD_ROOT%{embed_path}/static/%{name}
-%endif
 
 %{__make} install DESTDIR=$RPM_BUILD_ROOT
 
@@ -134,9 +94,3 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_sysconfdir}/dhcpc
 %attr(755,root,root) %{_sbindir}/dhcpcd
 %{_mandir}/man8/dhcpcd.8*
-
-%if %{!?_without_embed:1}%{?_without_embed:0}
-%files embed
-%defattr(644,root,root,755)
-%attr(755,root,root) %{embed_path}/*/*
-%endif
