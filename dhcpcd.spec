@@ -72,7 +72,7 @@ kira zamanýný (lease time) yenilemeye çalýþýr.
 %build
 aclocal
 autoconf
-automake -a -c
+automake -a -c -f
 
 %configure
 %{__make}
