@@ -1,11 +1,11 @@
-%define		ver	1.3.19-pl2
+%define		ver	1.3.19-pl7
 Summary:	DHCP Client Daemon
 Summary(de):	DHCPC-Dämon
 Summary(fr):	Démon DHCPC
 Summary(pl):	Klient (daemon) DHCP
 Summary(tr):	DHCPC sunucu süreçi (daemon)
 Name:		dhcpcd
-Version:	1.3.19pl2
+Version:	1.3.19pl7
 Release:	1
 License:	GPL
 Group:		Networking/Daemons
@@ -13,6 +13,8 @@ Group(pl):	Sieciowe/Serwery
 Source0:	http://www.phystech.com/ftp/%{name}-%{ver}.tar.gz
 Patch0:		dhcpcd-configure.patch
 Vendor:		Sergei Viznyuk <sv@phystech.com>
+BuildRequires:	automake
+BuildRequires:	autoconf
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_sbindir	/sbin
@@ -69,7 +71,9 @@ kira zamanýný (lease time) yenilemeye çalýþýr.
 %patch -p1
 
 %build
-rm config.cache
+rm -f config.cache
+automake -a -c -i
+aclocal
 autoconf
 %configure
 %{__make}
