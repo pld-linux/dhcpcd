@@ -1,3 +1,5 @@
+# conditional build:
+# _without_embed - don't build uClibc version
 %define	ver	1.3.20-pl0
 Summary:	DHCP Client Daemon
 Summary(de):	DHCPC-Dämon
@@ -6,7 +8,7 @@ Summary(pl):	Klient (daemon) DHCP
 Summary(tr):	DHCPC sunucu süreçi (daemon)
 Name:		dhcpcd
 Version:	%(echo %{ver} | sed -e "s#-##")
-Release:	2
+Release:	3
 License:	GPL
 Vendor:		Sergei Viznyuk <sv@phystech.com>
 Group:		Networking/Daemons
@@ -17,18 +19,23 @@ Patch0:		%{name}-configure.patch
 BuildRequires:	automake
 BuildRequires:	autoconf
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
-%if %{?BOOT:1}%{!?BOOT:0}
-#BuildRequires:	glibc-static
+%if %{!?_without_embed:1}%{?_without_embed:0}
+BuildRequires:	uClibc-devel
+BuildRequires:	uClibc-static
 %endif
+
+%define embed_path	/usr/lib/embed
+%define embed_cc	%{_arch}-uclibc-cc
+%define embed_cflags	%{rpmcflags} -Os
 
 %define		_sbindir	/sbin
 
 %description
 dhcpcd is an implementation of the DHCP client specified in
-draft-ietf-dhc-dhcp-09 (when -r option is not speci- fied) and RFC1541
+draft-ietf-dhc-dhcp-09 (when -r option is not specified) and RFC1541
 (when -r option is specified).
 
-It gets the host information (IP address, netmask, broad- cast
+It gets the host information (IP address, netmask, broadcast
 address, etc.) from a DHCP server and configures the network interface
 of the machine on which it is running. It also tries to renew the
 lease time according to RFC1541 or draft-ietf-dhc-dhcp-09.
@@ -69,13 +76,13 @@ sunucusundan alýr ve üzerinde çalýþtýðý makinanýn að arayüzünü
 ayarlar. Ayrýca RFC1541 veya draft-ietf-dhc-dhcp-09'a uygun olarak,
 kira zamanýný (lease time) yenilemeye çalýþýr.
 
-%package BOOT
+%package embed
 Summary:	dhcpcd for bootdisk
 Group:		Networking/Daemons
 Group(de):	Netzwerkwesen/Server
 Group(pl):	Sieciowe/Serwery
 
-%description BOOT
+%description embed
 dhcpcd for bootdisk.
 
 %prep
@@ -86,13 +93,17 @@ dhcpcd for bootdisk.
 aclocal
 autoconf
 automake -a -c
-%if %{?BOOT:1}%{!?BOOT:0}
+%if %{!?_without_embed:1}%{?_without_embed:0}
 %configure
 %{__make} \
-	CFLAGS="-m386 -I/usr/lib/bootdisk%{_includedir} -Os" \
-	LDFLAGS="-nostdlib -s" \
-	LIBS="%{_libdir}/bootdisk%{_libdir}/crt0.o %{_libdir}/bootdisk%{_libdir}/libc.a -lgcc"
-mv -f %{name} %{name}-BOOT
+	CFLAGS="%{embed_cflags}" \
+	CC=%{embed_cc}
+mv -f %{name} %{name}-embed-shared
+%{__make} \
+	CFLAGS="%{embed_cflags}" \
+	LDFLAGS="-static" \
+	CC=%{embed_cc}
+mv -f %{name} %{name}-embed-static
 %{__make} distclean
 rm -f config.cache
 %endif
@@ -104,9 +115,10 @@ rm -f config.cache
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{_sysconfdir}/dhcpc
 
-%if %{?BOOT:1}%{!?BOOT:0}
-install -d $RPM_BUILD_ROOT%{_libdir}/bootdisk%{_sbindir}
-install %{name}-BOOT $RPM_BUILD_ROOT%{_libdir}/bootdisk%{_sbindir}/%{name}
+%if %{!?_without_embed:1}%{?_without_embed:0}
+install -d $RPM_BUILD_ROOT%{embed_path}/{shared,static}
+install %{name}-embed-shared $RPM_BUILD_ROOT%{embed_path}/shared/%{name}
+install %{name}-embed-static $RPM_BUILD_ROOT%{embed_path}/static/%{name}
 %endif
 
 %{__make} install DESTDIR=$RPM_BUILD_ROOT
@@ -123,8 +135,8 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_sbindir}/dhcpcd
 %{_mandir}/man8/dhcpcd.8*
 
-%if %{?BOOT:1}%{!?BOOT:0}
-%files BOOT
+%if %{!?_without_embed:1}%{?_without_embed:0}
+%files embed
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/bootdisk%{_sbindir}/*
+%attr(755,root,root) %{embed_path}/*/*
 %endif
