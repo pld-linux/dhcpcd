@@ -109,7 +109,7 @@ install -d $RPM_BUILD_ROOT%{_sysconfdir}/dhcpc
 
 %if %{?BOOT:1}%{!?BOOT:0}
 install -d $RPM_BUILD_ROOT%{_libdir}/bootdisk/sbin
-install -s %{name}-BOOT $RPM_BUILD_ROOT%{_libdir}/bootdisk/sbin/%{name}
+install %{name}-BOOT $RPM_BUILD_ROOT%{_libdir}/bootdisk/sbin/%{name}
 %endif
 
 %{__make} install DESTDIR=$RPM_BUILD_ROOT
