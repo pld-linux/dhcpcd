@@ -1,11 +1,11 @@
-%define		ver	1.3.19-pl7
+%define		ver	1.3.19-pl8
 Summary:	DHCP Client Daemon
 Summary(de):	DHCPC-Dämon
 Summary(fr):	Démon DHCPC
 Summary(pl):	Klient (daemon) DHCP
 Summary(tr):	DHCPC sunucu süreçi (daemon)
 Name:		dhcpcd
-Version:	1.3.19pl7
+Version:	1.3.19pl8
 Release:	1
 License:	GPL
 Group:		Networking/Daemons
