@@ -1,4 +1,4 @@
-%define	ver	1.3.20-pl0
+%define	ver	1.3.22-pl1
 Summary:	DHCP Client Daemon
 Summary(de):	DHCPC-Dämon
 Summary(fr):	Démon DHCPC
@@ -6,12 +6,11 @@ Summary(pl):	Klient (daemon) DHCP
 Summary(tr):	DHCPC sunucu süreçi (daemon)
 Name:		dhcpcd
 Version:	%(echo %{ver} | sed -e "s#-##")
-Release:	4
+Release:	1
 License:	GPL
 Vendor:		Sergei Viznyuk <sv@phystech.com>
 Group:		Networking/Daemons
 Source0:	http://www.phystech.com/ftp/%{name}-%{ver}.tar.gz
-Patch0:		%{name}-configure.patch
 BuildRequires:	automake
 BuildRequires:	autoconf
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -67,7 +66,6 @@ kira zamanýný (lease time) yenilemeye çalýþýr.
 
 %prep
 %setup -q -n %{name}-%{ver}
-%patch -p1
 
 %build
 aclocal
@@ -75,22 +73,20 @@ aclocal
 %{__automake}
 
 %configure
-%{__make}
+%{__make} all mandir=%{_mandir} sbindir=%{_sbindir}
 
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{_sysconfdir}/dhcpc
 
-%{__make} install DESTDIR=$RPM_BUILD_ROOT
-
-gzip -9nf README AUTHORS ChangeLog NEWS
+%{__make} install DESTDIR=$RPM_BUILD_ROOT mandir=%{_mandir} sbindir=%{_sbindir}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc *.gz
+%doc README AUTHORS ChangeLog NEWS
 %dir %{_sysconfdir}/dhcpc
 %attr(755,root,root) %{_sbindir}/dhcpcd
 %{_mandir}/man8/dhcpcd.8*
