@@ -11,7 +11,7 @@ Patch: dhcpcd-1.3.17-misc.patch
 #Patch2: dhcpcd-0.65-buffer.patch
 #Patch3: dhcpcd-0.65-align.patch
 Patch4: dhcpcd-0.70-rtup.patch
-BuildRoot: /var/tmp/%{name}-root
+BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
 dhcpcd is an implementation of the DHCP  client  specified in
