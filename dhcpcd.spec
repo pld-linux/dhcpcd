@@ -8,7 +8,7 @@ Summary(pt_BR):	Servidor DHCPC
 Summary(tr):	DHCPC sunucu süreçi (daemon)
 Name:		dhcpcd
 Version:	%(echo %{ver} | sed -e "s#-##")
-Release:	10
+Release:	11
 License:	GPL v2
 Vendor:		Sergei Viznyuk <sv@phystech.com>
 Group:		Networking/Daemons
