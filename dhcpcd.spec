@@ -44,13 +44,14 @@ rm -rf $RPM_BUILD_ROOT
 make install DESTDIR=$RPM_BUILD_ROOT
 
 gzip -9nf $RPM_BUILD_ROOT%{_mandir}/man8/* \
-	README
+	README AUTHORS ChangeLog NEWS
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc README.gz
+%doc {README,AUTHORS,ChangeLog,NEWS}.gz
+%dir /etc/dhcpc
 %attr(755,root,root) /sbin/dhcpcd
 %{_mandir}/man8/dhcpcd.8.gz
