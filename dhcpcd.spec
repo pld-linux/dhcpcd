@@ -1,4 +1,4 @@
-%define	ver	1.3.19-pl9
+%define	ver	1.3.20-pl0
 Summary:	DHCP Client Daemon
 Summary(de):	DHCPC-Dämon
 Summary(fr):	Démon DHCPC
