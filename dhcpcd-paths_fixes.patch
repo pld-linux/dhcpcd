@@ -6,7 +6,7 @@
  
 -#define PID_FILE_PATH		"%s/"PROGRAM_NAME"-%s.pid"
 -#define CONFIG_DIR		"/etc/dhcpc"
-+#define PID_FILE_PATH		"/var/run/"PROGRAM_NAME".pid"
++#define PID_FILE_PATH		"/var/run/"PROGRAM_NAME"-%s.pid"
 +#define CONFIG_DIR		"/var/lib/dhcpc"
  #define DHCP_CACHE_FILE		"%s/"PROGRAM_NAME"-%s.cache"
  #define DHCP_HOSTINFO		"%s/"PROGRAM_NAME"-%s.info"
