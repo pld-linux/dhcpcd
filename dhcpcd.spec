@@ -1,16 +1,18 @@
+%define		ver	1.3.19-pl2
 Summary:	DHCP Client Daemon
 Summary(de):	DHCPC-Dämon
 Summary(fr):	Démon DHCPC
 Summary(pl):	Klient (daemon) DHCP
 Summary(tr):	DHCPC sunucu süreçi (daemon)
 Name:		dhcpcd
-Version:	1.3.18pl7
+Version:	1.3.19pl2
 Release:	1
 License:	GPL
 Group:		Networking/Daemons
 Group(pl):	Sieciowe/Serwery
-Source0:	ftp://sunsite.unc.edu/pub/Linux/system/network/daemons/%{name}-1.3.18-pl7.tar.gz
+Source0:	http://www.phystech.com/ftp/%{name}-%{ver}.tar.gz
 Patch0:		dhcpcd-configure.patch
+Vendor:		Sergei Viznyuk <sv@phystech.com>
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_sbindir	/sbin
@@ -63,11 +65,11 @@ ayarlar. Ayrýca RFC1541 veya draft-ietf-dhc-dhcp-09'a uygun olarak,
 kira zamanýný (lease time) yenilemeye çalýþýr.
 
 %prep
-%setup -q -n dhcpcd-1.3.18-pl7
+%setup -q -n %{name}-%{ver}
 %patch -p1
 
 %build
-LDFLAGS="-s"; export LDFLAGS
+rm config.cache
 autoconf
 %configure
 %{__make}
@@ -79,15 +81,12 @@ rm -rf $RPM_BUILD_ROOT
 
 install -d $RPM_BUILD_ROOT%{_sysconfdir}/dhcpc
 
-gzip -9nf $RPM_BUILD_ROOT%{_mandir}/man8/* \
-	README AUTHORS ChangeLog NEWS
-
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc {README,AUTHORS,ChangeLog,NEWS}.gz
+%doc README AUTHORS ChangeLog NEWS
 %dir %{_sysconfdir}/dhcpc
 %attr(755,root,root) %{_sbindir}/dhcpcd
-%{_mandir}/man8/dhcpcd.8.gz
+%{_mandir}/man8/dhcpcd.8*
