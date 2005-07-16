@@ -1,3 +1,5 @@
+# TODO
+# - security http://security.gentoo.org/glsa/glsa-200507-16.xml
 Summary:	DHCP Client Daemon
 Summary(de):	DHCPC-Dämon
 Summary(es):	Cliente (daemon) DHCP
@@ -22,7 +24,7 @@ BuildRequires:	automake
 BuildRequires:	autoconf
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
-%define	_sbindir	/sbin
+%define		_sbindir	/sbin
 
 %description
 dhcpcd is an implementation of the DHCP client specified in
