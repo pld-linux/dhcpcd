@@ -1,5 +1,3 @@
-# TODO
-# - security http://security.gentoo.org/glsa/glsa-200507-16.xml
 Summary:	DHCP Client Daemon
 Summary(de):	DHCPC-Dämon
 Summary(es):	Cliente (daemon) DHCP
@@ -10,7 +8,7 @@ Summary(tr):	DHCPC sunucu süreçi (daemon)
 Name:		dhcpcd
 %define	ver	1.3.22-pl4
 Version:	%(echo %{ver} | tr -d - )
-Release:	4
+Release:	5
 License:	GPL v2
 Group:		Networking/Daemons
 Source0:	http://www.phystech.com/ftp/%{name}-%{ver}.tar.gz
@@ -20,6 +18,7 @@ Patch1:		%{name}-ntpdrift-66136.patch
 Patch2:		%{name}-noMoFakery.patch
 Patch3:		%{name}-noNISfakery.patch
 Patch4:		%{name}-paths_fixes.patch
+Patch5:		%{name}-security.patch
 BuildRequires:	automake
 BuildRequires:	autoconf
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -98,6 +97,7 @@ kira zamanýný (lease time) yenilemeye çalýþýr.
 %patch2 -p1
 %patch3 -p1
 %patch4 -p1
+%patch5 -p0
 
 %build
 rm -f missing
