@@ -1,3 +1,5 @@
+# TODO:
+# - review Gentoo patches: http://www.gentoo.org/cgi-bin/viewcvs.cgi/net-misc/dhcpcd/files/
 Summary:	DHCP Client Daemon
 Summary(de):	DHCPC-Dämon
 Summary(es):	Cliente (daemon) DHCP
