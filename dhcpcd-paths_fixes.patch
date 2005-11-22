@@ -1,93 +1,91 @@
---- ./dhcpcd.c.org4	Wed Jan  1 02:26:32 2003
-+++ ./dhcpcd.c	Mon Jan  6 12:55:05 2003
-@@ -88,7 +88,7 @@
- {
-   int o;
-   char pidfile[64];
--  snprintf(pidfile,sizeof(pidfile),PID_FILE_PATH,ConfigDir,IfNameExt);
-+  snprintf(pidfile,sizeof(pidfile),PID_FILE_PATH,IfNameExt);
-   o=open(pidfile,O_RDONLY);
-   if ( o == -1 ) return;
-   close(o);
---- ./pathnames.h.org4	Sun Sep 29 17:55:31 2002
-+++ ./pathnames.h	Mon Jan  6 12:50:24 2003
-@@ -26,7 +26,7 @@
- #include <paths.h>
- #include "dhcpcd.h"
- 
--#define PID_FILE_PATH		"%s/"PROGRAM_NAME"-%s.pid"
-+#define PID_FILE_PATH		"/var/run/"PROGRAM_NAME"-%s.pid"
- #define DHCP_CACHE_FILE		"%s/"PROGRAM_NAME"-%s.cache"
- #define DHCP_HOSTINFO		"%s/"PROGRAM_NAME"-%s.info"
- #define EXEC_ON_CHANGE		"%s/"PROGRAM_NAME".exe"
-@@ -37,10 +37,10 @@
- #define NIS_CONF		"/etc/config/yp.conf"
- #define NTP_CONF		"/etc/config/ntp.conf"
- #else
--#define CONFIG_DIR		"/etc/dhcpc"
-+#define CONFIG_DIR		"/var/lib/dhcpc"
- #define RESOLV_CONF		"/etc/resolv.conf"
- #define NIS_CONF		"/etc/yp.conf"
--#define NTP_CONF		"/etc/ntp.conf"
-+#define NTP_CONF		"/etc/ntp/ntp.conf"
+--- src/pathnames.h.orig	2005-11-22 19:21:57.603959728 +0100
++++ src/pathnames.h	2005-11-22 18:16:32.263702152 +0100
+@@ -41,8 +41,8 @@
+ #define CONFIG_DIR		"/var/lib/dhcpc"
  #endif
  
+-#define RESOLV_FILE		"%s/resolv.conf"
+-#define NIS_FILE		"%s/yp.conf"
+-#define NTP_FILE		"%s/ntp.conf"
++#define RESOLV_FILE		"/etc/resolv.conf"
++#define NIS_FILE		"/etc/yp.conf"
++#define NTP_FILE		"/etc/ntp/ntp.conf"
+ 
  #endif
---- ./dhcpcd.8.org4	Wed Jan  1 02:31:31 2003
-+++ ./dhcpcd.8	Mon Jan  6 12:52:50 2003
-@@ -137,7 +137,7 @@
- will use
- .I <ConfigDir>
- directory instead of default
--.I /etc/dhcpc
-+.I /var/lib/dhcpc
- to store configuration information.
+--- src/dhcpcd.8.orig	2005-07-25 10:28:36.000000000 +0200
++++ src/dhcpcd.8	2005-11-22 22:47:37.828960376 +0100
+@@ -361,7 +361,7 @@
+ above.
+ .PD 1
  .TP
- .BI \-S
-@@ -281,7 +281,7 @@
- .SH FILES
- .PD 0
+-.BI <ConfigDir>/dhcpcd-<interface>.info
++.BI /var/lib/dhcpc/dhcpcd-<interface>.info
+ file in which
+ .B dhcpcd
+ saves the host information. The word
+@@ -370,7 +370,7 @@
+ .I eth0
+ to which dhcpcd is attached.
  .TP
--.BI /etc/dhcpc
-+.BI /var/lib/dhcpc
- Default 
- .I <ConfigDir>
- directory used for storing files
-@@ -379,7 +379,7 @@
+-.BI /etc/dhcpc/dhcpcd.exe
++.BI /var/lib/dhcpc/dhcpcd.exe
+ script file, which
+ .B dhcpcd
+ will try to execute whenever it configures or brings down the interface. The
+@@ -401,7 +401,7 @@
+ .I -d
+ debug flag.
+ .TP
+-.BI <ConfigDir>/dhcpcd-<interface>.cache
++.BI /var/lib/dhcpc/dhcpcd-<interface>.cache
+ Cache file containing the previously assigned IP address and
+ some other things.
+ The word
+@@ -412,38 +412,38 @@
+ .B dhcpcd
+ is attached.
+ .TP
+-.BI <etcDir>/resolv.conf
++.BI /etc/resolv.conf
+ file created by
+ .B dhcpcd
+ when the client receives DNS and domain name options.
+ The old
+-.B <etcDir>/resolv.conf
++.B /etc/resolv.conf
+ file is renamed to
+-.B <etcDir>/resolv.conf.sv
++.B /etc/resolv.conf.sv
+ and will be restored back when
  .B dhcpcd
  exits for any reason.
  .TP
--.BI <ConfigDir>/dhcpcd-<interface>.pid
-+.BI  /var/run/dhcpcd-<interface>.pid
- file containing the process id of
- .B dhcpcd.
- The word
---- ./signals.c.org4	Sun Jan 20 23:51:46 2002
-+++ ./signals.c	Mon Jan  6 12:56:58 2003
-@@ -44,7 +44,7 @@
-   FILE *fp;
-   pid_t pid;
-   char pidfile[64];
--  snprintf(pidfile,sizeof(pidfile),PID_FILE_PATH,ConfigDir,IfNameExt);
-+  snprintf(pidfile,sizeof(pidfile),PID_FILE_PATH,IfNameExt);
-   fp=fopen(pidfile,"r");
-   if ( fp == NULL ) goto ntrn;
-   fscanf(fp,"%u",&pid);
-@@ -63,7 +63,7 @@
- {
-   FILE *fp;
-   char pidfile[64];
--  snprintf(pidfile,sizeof(pidfile),PID_FILE_PATH,ConfigDir,IfNameExt);
-+  snprintf(pidfile,sizeof(pidfile),PID_FILE_PATH,IfNameExt);
-   fp=fopen(pidfile,"w");
-   if ( fp == NULL )
-     {
-@@ -77,7 +77,7 @@
- void deletePidFile()
- {
-   char pidfile[64];
--  snprintf(pidfile,sizeof(pidfile),PID_FILE_PATH,ConfigDir,IfNameExt);
-+  snprintf(pidfile,sizeof(pidfile),PID_FILE_PATH,IfNameExt);
-   unlink(pidfile);
- }
- /*****************************************************************************/
+-.BI <etcDir>/yp.conf
++.BI /etc/yp.conf
+ file created by
+ .B dhcpcd
+ when the client receives NIS options.
+ The old
+-.B <etcDir>/yp.conf
++.B /etc/yp.conf
+ file is renamed to
+-.B <etcDir>/yp.conf.sv
++.B /etc/yp.conf.sv
+ and is restored back when
+ .B dhcpcd
+ exits for any reason.
+ .TP
+-.BI <etcDir>/ntp.conf
++.BI /etc/ntp/ntp.conf
+ file created by
+ .B dhcpcd
+ when the client receives NTP options.
+ The old
+-.B <etcDir>/ntp.conf
++.B /etc/ntp/ntp.conf
+ file is renamed to
+-.B <etcDir>/ntp.conf.sv
++.B /etc/ntp/ntp.conf.sv
+ and is restored back when
+ .B dhcpcd
+ exits for any reason.
