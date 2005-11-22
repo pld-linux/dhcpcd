@@ -8,19 +8,15 @@ Summary(pl):	Klient (daemon) DHCP
 Summary(pt_BR):	Servidor DHCPC
 Summary(tr):	DHCPC sunucu süreçi (daemon)
 Name:		dhcpcd
-%define	ver	1.3.22-pl4
-Version:	%(echo %{ver} | tr -d - )
-Release:	5
+Version:	2.0.0
+Release:	0.1
 License:	GPL v2
 Group:		Networking/Daemons
-Source0:	http://www.phystech.com/ftp/%{name}-%{ver}.tar.gz
-# Source0-md5:	dd627a121e43835bead3ffef5b1a72fd
-Patch0:		%{name}-configure.patch
-Patch1:		%{name}-ntpdrift-66136.patch
-Patch2:		%{name}-noMoFakery.patch
-Patch3:		%{name}-noNISfakery.patch
-Patch4:		%{name}-paths_fixes.patch
-Patch5:		%{name}-security.patch
+Source0:	http://download.berlios.de/dhcpcd/%{name}-%{version}.tar.bz2
+# Source0-md5:	b84d34a44b6667ea012e0aad4f9d71bd
+Patch0:		%{name}-ntpdrift-66136.patch
+Patch1:		%{name}-paths_fixes.patch
+URL:		http://developer.berlios.de/projects/dhcpcd/
 BuildRequires:	automake
 BuildRequires:	autoconf
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -93,13 +89,9 @@ ayarlar. Ayrýca RFC1541 veya draft-ietf-dhc-dhcp-09'a uygun olarak,
 kira zamanýný (lease time) yenilemeye çalýþýr.
 
 %prep
-%setup -q -n %{name}-%{ver}
-%patch0 -p1
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
-%patch4 -p1
-%patch5 -p0
+%setup -q
+%patch0 -p0
+%patch1 -p0
 
 %build
 rm -f missing
