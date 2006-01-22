@@ -1,5 +1,3 @@
-# TODO:
-# - review Gentoo patches: http://www.gentoo.org/cgi-bin/viewcvs.cgi/net-misc/dhcpcd/files/
 Summary:	DHCP Client Daemon
 Summary(de):	DHCPC-Dämon
 Summary(es):	Cliente (daemon) DHCP
@@ -8,12 +6,12 @@ Summary(pl):	Klient (daemon) DHCP
 Summary(pt_BR):	Servidor DHCPC
 Summary(tr):	DHCPC sunucu süreçi (daemon)
 Name:		dhcpcd
-Version:	2.0.0
-Release:	0.1
+Version:	2.0.1
+Release:	1
 License:	GPL v2
 Group:		Networking/Daemons
 Source0:	http://download.berlios.de/dhcpcd/%{name}-%{version}.tar.bz2
-# Source0-md5:	b84d34a44b6667ea012e0aad4f9d71bd
+# Source0-md5:	c5766aafd51f581c2b2c8620b26f5e02
 Patch0:		%{name}-ntpdrift-66136.patch
 Patch1:		%{name}-paths_fixes.patch
 URL:		http://developer.berlios.de/projects/dhcpcd/
