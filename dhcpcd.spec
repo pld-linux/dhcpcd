@@ -7,13 +7,12 @@ Summary(pt_BR):	Servidor DHCPC
 Summary(tr):	DHCPC sunucu süreçi (daemon)
 Name:		dhcpcd
 Version:	2.0.1
-Release:	1
+Release:	2
 License:	GPL v2
 Group:		Networking/Daemons
 Source0:	http://download.berlios.de/dhcpcd/%{name}-%{version}.tar.bz2
 # Source0-md5:	c5766aafd51f581c2b2c8620b26f5e02
 Patch0:		%{name}-ntpdrift-66136.patch
-Patch1:		%{name}-paths_fixes.patch
 URL:		http://developer.berlios.de/projects/dhcpcd/
 BuildRequires:	automake
 BuildRequires:	autoconf
@@ -89,7 +88,6 @@ kira zamanýný (lease time) yenilemeye çalýþýr.
 %prep
 %setup -q
 %patch0 -p0
-%patch1 -p0
 
 %build
 rm -f missing
