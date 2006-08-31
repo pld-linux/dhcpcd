@@ -1,0 +1,5 @@
+- release 155555: more fixes in paths_fixes patch:
+- - fix dhcpcd nam page for inform about writing pid file is allways performed in
+   /var/run,
+- - more fixes for correct snprintf() output pid file name (by Przemyslaw Bialek
+   <lobo@chello.pl>) in case const location in /var/run.
