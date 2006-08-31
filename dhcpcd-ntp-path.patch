@@ -1,0 +1,10 @@
+--- dhcpcd-2.0.1/src/pathnames.h~	2006-01-21 21:40:54.000000000 +0200
++++ dhcpcd-2.0.1/src/pathnames.h	2006-09-01 00:50:59.522622343 +0300
+@@ -43,6 +43,6 @@
+ 
+ #define RESOLV_FILE		"%s/resolv.conf"
+ #define NIS_FILE		"%s/yp.conf"
+-#define NTP_FILE		"%s/ntp.conf"
++#define NTP_FILE		"%s/ntp/ntp.conf"
+ 
+ #endif
