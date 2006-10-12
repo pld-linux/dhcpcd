@@ -10,6 +10,7 @@ Version:	2.0.1
 Release:	3
 License:	GPL v2
 Group:		Networking/Daemons
+#Source0Download: http://developer.berlios.de/project/filelist.php?group_id=4229
 Source0:	http://download.berlios.de/dhcpcd/%{name}-%{version}.tar.bz2
 # Source0-md5:	c5766aafd51f581c2b2c8620b26f5e02
 Patch0:		%{name}-ntpdrift-66136.patch
