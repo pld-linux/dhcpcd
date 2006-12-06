@@ -95,7 +95,7 @@ kira zamanýný (lease time) yenilemeye çalýþýr.
 %{__make} \
 	CC="%{__cc}" \
 	CFLAGS="%{rpmcflags}" \
-	LDFLAGS="%{rpmldflags}" \
+	LDFLAGS="%{rpmcflags} %{rpmldflags}" \
 	mandir=%{_mandir} \
 	sbindir=%{_sbindir}
 
