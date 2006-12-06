@@ -113,7 +113,6 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc ChangeLog
-#%attr(755,root,root) %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/dhcpc/dhcpcd.exe
 %attr(755,root,root) %{_sbindir}/dhcpcd
 %dir %{_var}/lib/dhcpc
 %{_mandir}/man8/dhcpcd.8*
