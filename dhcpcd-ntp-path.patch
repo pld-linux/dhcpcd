@@ -1,10 +1,13 @@
---- dhcpcd-2.0.1/src/pathnames.h~	2006-01-21 21:40:54.000000000 +0200
-+++ dhcpcd-2.0.1/src/pathnames.h	2006-09-01 00:50:59.522622343 +0300
-@@ -43,6 +43,6 @@
+--- pathnames.h	2006-11-27 21:45:26.000000000 +0100
++++ pathnames.h-new	2006-12-06 05:49:54.000000000 +0100
+@@ -27,8 +27,8 @@
+ #define ETCDIR			"/etc"
+ #define RESOLVFILE		ETCDIR "/resolv.conf"
+ #define NISFILE			ETCDIR "/yp.conf"
+-#define NTPFILE			ETCDIR "/ntp.conf"
+-#define NTPDRIFTFILE		ETCDIR "/ntp.drift"
++#define NTPFILE			ETCDIR "/ntp/conf"
++#define NTPDRIFTFILE		ETCDIR "/ntp/drift"
+ #define DEFAULT_SCRIPT		ETCDIR "/" PACKAGE ".sh"
  
- #define RESOLV_FILE		"%s/resolv.conf"
- #define NIS_FILE		"%s/yp.conf"
--#define NTP_FILE		"%s/ntp.conf"
-+#define NTP_FILE		"%s/ntp/ntp.conf"
- 
- #endif
+ #define STATEDIR		"/var"
