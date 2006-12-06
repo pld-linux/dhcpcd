@@ -93,6 +93,7 @@ kira zamanýný (lease time) yenilemeye çalýþýr.
 
 %build
 %{__make} \
+	CC="%{__cc}" \
 	CFLAGS="%{rpmcflags}" \
 	LDFLAGS="%{rpmldflags}" \
 	mandir=%{_mandir} \
