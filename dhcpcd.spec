@@ -6,15 +6,14 @@ Summary(pl):	Klient (daemon) DHCP
 Summary(pt_BR):	Servidor DHCPC
 Summary(tr):	DHCPC sunucu süreçi (daemon)
 Name:		dhcpcd
-Version:	2.0.1
-Release:	3
+Version:	3.0.0
+Release:	1
 License:	GPL v2
 Group:		Networking/Daemons
 #Source0Download: http://developer.berlios.de/project/filelist.php?group_id=4229
 Source0:	http://download.berlios.de/dhcpcd/%{name}-%{version}.tar.bz2
-# Source0-md5:	c5766aafd51f581c2b2c8620b26f5e02
-Patch0:		%{name}-ntpdrift-66136.patch
-Patch1:		%{name}-ntp-path.patch
+# Source0-md5:	1b4348187f45cd604d31b9e9b3c19bab
+Patch0:		%{name}-ntp-path.patch
 URL:		http://developer.berlios.de/projects/dhcpcd/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -91,15 +90,11 @@ kira zamanýný (lease time) yenilemeye çalýþýr.
 %prep
 %setup -q
 %patch0 -p0
-%patch1 -p1
 
 %build
-rm -f missing
-%{__aclocal}
-%{__autoconf}
-%{__automake}
-%configure
-%{__make} all \
+%{__make} \
+	CFLAGS="%{rpmcflags}" \
+	LDFLAGS="%{rpmldflags}" \
 	mandir=%{_mandir} \
 	sbindir=%{_sbindir}
 
@@ -117,8 +112,8 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc README AUTHORS ChangeLog NEWS
-%attr(755,root,root) %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/dhcpc/dhcpcd.exe
+%doc ChangeLog
+#%attr(755,root,root) %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/dhcpc/dhcpcd.exe
 %attr(755,root,root) %{_sbindir}/dhcpcd
 %dir %{_var}/lib/dhcpc
 %{_mandir}/man8/dhcpcd.8*
