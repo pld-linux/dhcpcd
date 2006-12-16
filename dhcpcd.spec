@@ -15,8 +15,6 @@ Source0:	http://download.berlios.de/dhcpcd/%{name}-%{version}.tar.bz2
 # Source0-md5:	a71476407efd56cf13df5adf224e1d7f
 Patch0:		%{name}-ntp-path.patch
 URL:		http://developer.berlios.de/projects/dhcpcd/
-BuildRequires:	autoconf
-BuildRequires:	automake
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_sbindir	/sbin
