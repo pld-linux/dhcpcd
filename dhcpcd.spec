@@ -6,13 +6,13 @@ Summary(pl):	Klient (daemon) DHCP
 Summary(pt_BR):	Servidor DHCPC
 Summary(tr):	DHCPC sunucu süreçi (daemon)
 Name:		dhcpcd
-Version:	3.0.6
+Version:	3.0.8
 Release:	1
 License:	GPL v2
 Group:		Networking/Daemons
 #Source0Download: http://developer.berlios.de/project/filelist.php?group_id=4229
 Source0:	http://download.berlios.de/dhcpcd/%{name}-%{version}.tar.bz2
-# Source0-md5:	a71476407efd56cf13df5adf224e1d7f
+# Source0-md5:	7c41756a7cfef60bdd8ef2f12216f367
 Patch0:		%{name}-ntp-path.patch
 URL:		http://developer.berlios.de/projects/dhcpcd/
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
