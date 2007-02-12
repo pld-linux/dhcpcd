@@ -1,10 +1,10 @@
 Summary:	DHCP Client Daemon
-Summary(de.UTF-8):   DHCPC-Dämon
-Summary(es.UTF-8):   Cliente (daemon) DHCP
-Summary(fr.UTF-8):   Démon DHCPC
-Summary(pl.UTF-8):   Klient (daemon) DHCP
-Summary(pt_BR.UTF-8):   Servidor DHCPC
-Summary(tr.UTF-8):   DHCPC sunucu süreçi (daemon)
+Summary(de.UTF-8):	DHCPC-Dämon
+Summary(es.UTF-8):	Cliente (daemon) DHCP
+Summary(fr.UTF-8):	Démon DHCPC
+Summary(pl.UTF-8):	Klient (daemon) DHCP
+Summary(pt_BR.UTF-8):	Servidor DHCPC
+Summary(tr.UTF-8):	DHCPC sunucu süreçi (daemon)
 Name:		dhcpcd
 Version:	3.0.10
 Release:	1
