@@ -14,7 +14,6 @@ Group:		Networking/Daemons
 Source0:	http://download.berlios.de/dhcpcd/%{name}-%{version}.tar.bz2
 # Source0-md5:	b61c176447e5988294ec8a36cdf00f04
 Patch0:		%{name}-ntp-path.patch
-Patch1:		%{name}-dotest.patch
 URL:		http://developer.berlios.de/projects/dhcpcd/
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -89,7 +88,6 @@ kira zamanını (lease time) yenilemeye çalışır.
 %prep
 %setup -q
 %patch0 -p1
-%patch1 -p1
 
 %build
 %{__make} \
