@@ -88,12 +88,8 @@ kira zamanını (lease time) yenilemeye çalışır.
 
 %prep
 %setup -q
-<<<<<<< dhcpcd.spec
-%patch0 -p0
-%patch1 -p1
-=======
 %patch0 -p1
->>>>>>> 1.70
+%patch1 -p1
 
 %build
 %{__make} \
