@@ -1,18 +1,18 @@
 Summary:	DHCP Client Daemon
-Summary(de.UTF-8):	DHCPC-DÃ¤mon
-Summary(es.UTF-8):	Cliente (daemon) DHCP
-Summary(fr.UTF-8):	DÃ©mon DHCPC
-Summary(pl.UTF-8):	Klient (daemon) DHCP
-Summary(pt_BR.UTF-8):	Servidor DHCPC
-Summary(tr.UTF-8):	DHCPC sunucu sÃ¼reÃ§i (daemon)
+Summary(de):	DHCPC-Dämon
+Summary(es):	Cliente (daemon) DHCP
+Summary(fr):	Démon DHCPC
+Summary(pl):	Klient (daemon) DHCP
+Summary(pt_BR):	Servidor DHCPC
+Summary(tr):	DHCPC sunucu süreçi (daemon)
 Name:		dhcpcd
-Version:	3.1.4
+Version:	3.1.5
 Release:	1
 License:	GPL v2
 Group:		Networking/Daemons
 #Source0Download: http://developer.berlios.de/project/filelist.php?group_id=4229
 Source0:	http://download.berlios.de/dhcpcd/%{name}-%{version}.tar.bz2
-# Source0-md5:	7a569e36f8fbfb6858eabafb921c6716
+# Source0-md5:	2a0070088d07371d99a9929355af855f
 Patch0:		%{name}-ntp-path.patch
 URL:		http://developer.berlios.de/projects/dhcpcd/
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -29,61 +29,61 @@ etc.) from a DHCP server and configures the network interface of the
 machine on which it is running. It also tries to renew the lease time
 according to RFC1541 or draft-ietf-dhc-dhcp-09.
 
-%description -l de.UTF-8
+%description -l de
 dhcpcd ist eine Implementierung des DHCP-Client, spezifiziert in
 draft-ietf-dhc-dhcp-09 (wenn -r option nicht angegeben) und RFC1541
 (wenn -r option angegeben).
 
 Es bezieht die Host-Infos (IP-Adresse, Netmask, Broadcast-Adresse,
 usw.) von einem DHCP-Server und konfiguriert die Netzschnittstelle des
-Computers, auf dem es lÃ¤uft Es versucht, die Verleihzeit gemÃ¤ÃŸ RFC1541
-bzw. draft-ietf-dhc-dhcp-09 zu verlÃ¤ngern.
+Computers, auf dem es läuft Es versucht, die Verleihzeit gemäß RFC1541
+bzw. draft-ietf-dhc-dhcp-09 zu verlängern.
 
-%description -l es.UTF-8
-dhcpcd es una implementaciÃ³n del cliente DHCP especificado en
-draft-ietf-dhc-dhcp-09 (cuando la opciÃ³n -r no estÃ¡ especificada) y
-RFC1541 (cuando la opciÃ³n -r estÃ¡ especificada). Captura la
-informaciÃ³n del host (direcciÃ³n IP, mÃ¡scara de red, direcciÃ³n de
+%description -l es
+dhcpcd es una implementación del cliente DHCP especificado en
+draft-ietf-dhc-dhcp-09 (cuando la opción -r no está especificada) y
+RFC1541 (cuando la opción -r está especificada). Captura la
+información del host (dirección IP, máscara de red, dirección de
 broadcast, etc.) de un servidor DHCP y configura la interface de red
-de la mÃ¡quina donde estÃ© ejecutando. TambiÃ©n intenta renovar el tiempo
+de la máquina donde esté ejecutando. También intenta renovar el tiempo
 de alquiler de los direcciones de acuerdo con RFC1541 o
 draft-ietf-dhc-dhcp-09.
 
-%description -l fr.UTF-8
-dhcpcd est une implantation du client DHCP spÃ©cifiÃ© dans les
+%description -l fr
+dhcpcd est une implantation du client DHCP spécifié dans les
 draft-ietf-dhc-dhcp-09 (sans l'option -r) et RFC1541 (avec l'option
 - -r).
 
-Il obtient l'information sur l'hÃ´te (adresse IP, masque rÃ©seau,
-adresse de diffusion, etc.) Ã  partir d'un serveur DHCP et configure
-l'interface rÃ©seau de la machine sur laquelle il tourne. Il essaie
-aussi de renouveler le Â« lease time Â» selon les RFC1541 ou
+Il obtient l'information sur l'hôte (adresse IP, masque réseau,
+adresse de diffusion, etc.) à partir d'un serveur DHCP et configure
+l'interface réseau de la machine sur laquelle il tourne. Il essaie
+aussi de renouveler le « lease time » selon les RFC1541 ou
 draft-ietf-dhc-dhcp-09.
 
-%description -l pl.UTF-8
-dhcpd jest implementacja klienta DHCP, opisanÄ… w
-draft-ietf-dhc-dhcp-09 (kiedy nie podaje siÄ™ opcji -r) oraz RFC1544
-(kiedy podaje siÄ™ opcjÄ™ -r).
+%description -l pl
+dhcpd jest implementacja klienta DHCP, opisan± w
+draft-ietf-dhc-dhcp-09 (kiedy nie podaje siê opcji -r) oraz RFC1544
+(kiedy podaje siê opcjê -r).
 
-Pobiera on informacjÄ™ o komputerze (adres IP, maska sieci, adres
-rozgÅ‚oszeniowy itd.) i konfiguruje interfejs sieciowy maszyny, na
-ktÃ³rej jest uruchomiony. PrÃ³buje rÃ³wnieÅ¼ odÅ›wieÅ¼yÄ‡ czas przestoju
+Pobiera on informacjê o komputerze (adres IP, maska sieci, adres
+rozg³oszeniowy itd.) i konfiguruje interfejs sieciowy maszyny, na
+której jest uruchomiony. Próbuje równie¿ od¶wie¿yæ czas przestoju
 zgodnie z RFC1541 oraz draft-ietf-dhc-dhcp-09.
 
-%description -l pt_BR.UTF-8
-dhcpcd Ã© uma implementaÃ§Ã£o do cliente DHCP especificado em
-draft-ietf-dhc-dhcp-09 (quando a opÃ§Ã£o -r nÃ£o Ã© especificada) e
-RFC1541 (quando a opÃ§Ã£o -r Ã© especificada). Ele captura a informaÃ§Ã£o
-do host (endereÃ§o IP, mÃ¡scara de rede, endereÃ§o de broadcast, etc.) de
-um servidor DHCP e configura a interface de rede da mÃ¡quina em que
-estÃ¡ rodando. Ele tambÃ©m tenta renovar o tempo de aluguel dos
-endereÃ§os de acordo com RFC1541 ou draft-ietf-dhc-dhcp-09.
+%description -l pt_BR
+dhcpcd é uma implementação do cliente DHCP especificado em
+draft-ietf-dhc-dhcp-09 (quando a opção -r não é especificada) e
+RFC1541 (quando a opção -r é especificada). Ele captura a informação
+do host (endereço IP, máscara de rede, endereço de broadcast, etc.) de
+um servidor DHCP e configura a interface de rede da máquina em que
+está rodando. Ele também tenta renovar o tempo de aluguel dos
+endereços de acordo com RFC1541 ou draft-ietf-dhc-dhcp-09.
 
-%description -l tr.UTF-8
-Makina bilgilerini (IP adresi, aÄŸ maskesi, yayÄ±n adresi, vb.) bir DHCP
-sunucusundan alÄ±r ve Ã¼zerinde Ã§alÄ±ÅŸtÄ±ÄŸÄ± makinanÄ±n aÄŸ arayÃ¼zÃ¼nÃ¼
-ayarlar. AyrÄ±ca RFC1541 veya draft-ietf-dhc-dhcp-09'a uygun olarak,
-kira zamanÄ±nÄ± (lease time) yenilemeye Ã§alÄ±ÅŸÄ±r.
+%description -l tr
+Makina bilgilerini (IP adresi, að maskesi, yayýn adresi, vb.) bir DHCP
+sunucusundan alýr ve üzerinde çalýþtýðý makinanýn að arayüzünü
+ayarlar. Ayrýca RFC1541 veya draft-ietf-dhc-dhcp-09'a uygun olarak,
+kira zamanýný (lease time) yenilemeye çalýþýr.
 
 %prep
 %setup -q
