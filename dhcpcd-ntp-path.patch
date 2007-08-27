@@ -1,6 +1,6 @@
---- dhcpcd-3.1.4/config.h-new	2007-08-19 17:07:43.126649947 +0200
-+++ dhcpcd-3.1.5/config.h	2007-08-27 22:43:51.614826538 +0300
-@@ -52,20 +52,20 @@
+--- dhcpcd-3.1.5/config.h	2007-08-27 22:43:51.614826538 +0300
++++ dhcpcd-3.1.5/config.h	2007-08-27 23:23:49.078758408 +0300
+@@ -52,21 +52,21 @@
  #define RESOLVCONF          "/sbin/resolvconf"
  
  #define ETCDIR              "/etc"
@@ -9,9 +9,10 @@
  
 -#define NISFILE             ETCDIR "/yp.conf"
 -#define NISSERVICE          ETCDIR "/init.d/ypbind"
+-#define NISRESTARTARGS      "--nodeps", "--quiet", "conditionalrestart"
 +#define NISFILE             "/etc/yp.conf"
 +#define NISSERVICE          "/etc/rc.d/init.d/ypbind"
- #define NISRESTARTARGS      "--nodeps", "--quiet", "conditionalrestart"
++#define NISRESTARTARGS      "condrestart"
  
 -#define NTPFILE             ETCDIR "/ntp.conf"
 -#define NTPDRIFTFILE        ETCDIR "/ntp.drift"
@@ -19,13 +20,16 @@
 +#define NTPDRIFTFILE        "/etc/ntp/ntp.drift"
  #define NTPLOGFILE          "/var/log/ntp.log"
 -#define NTPSERVICE          ETCDIR "/init.d/ntpd"
+-#define NTPRESTARTARGS      "--nodeps", "--quiet", "conditionalrestart"
 +#define NTPSERVICE          "/etc/rc.d/init.d/ntpd"
- #define NTPRESTARTARGS      "--nodeps", "--quiet", "conditionalrestart"
++#define NTPRESTARTARGS      "condrestart"
  
 -#define OPENNTPFILE         ETCDIR "/ntpd.conf"
 -#define OPENNTPSERVICE      ETCDIR "/init.d/ntpd"
+-#define OPENNTPRESTARTARGS  "--nodeps", "--quiet", "conditionalrestart"
 +#define OPENNTPFILE         "/etc/ntpd/ntpd.conf"
 +#define OPENNTPSERVICE      "/etc/rc.d/init.d/ntpd"
- #define OPENNTPRESTARTARGS  "--nodeps", "--quiet", "conditionalrestart"
++#define OPENNTPRESTARTARGS  "condrestart"
  
  #define DEFAULT_SCRIPT      ETCDIR "/" PACKAGE ".sh"
+ 
