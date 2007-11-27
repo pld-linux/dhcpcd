@@ -7,7 +7,7 @@ Summary(pt_BR.UTF-8):	Servidor DHCPC
 Summary(tr.UTF-8):	DHCPC sunucu süreçi (daemon)
 Name:		dhcpcd
 Version:	3.1.8
-Release:	2
+Release:	3
 License:	GPL v2
 Group:		Networking/Daemons
 #Source0Download: http://developer.berlios.de/project/filelist.php?group_id=4229
@@ -99,7 +99,7 @@ kira zamanını (lease time) yenilemeye çalışır.
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_sysconfdir},/var/lib/dhcpc}
+install -d $RPM_BUILD_ROOT{%{_sysconfdir},/var/lib/dhcpcd}
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT \
@@ -117,5 +117,5 @@ rm -rf $RPM_BUILD_ROOT
 %doc ChangeLog
 %attr(755,root,root) %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/dhcpcd.sh
 %attr(755,root,root) %{_sbindir}/dhcpcd
-%dir %{_var}/lib/dhcpc
+%dir %{_var}/lib/dhcpcd
 %{_mandir}/man8/dhcpcd.8*
