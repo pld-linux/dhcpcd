@@ -1,0 +1,11 @@
+--- ./dhcpcd.c.org	2007-11-15 18:58:12.000000000 +0100
++++ ./dhcpcd.c	2007-12-27 00:17:56.000000000 +0100
+@@ -162,7 +162,7 @@
+ 	for (i = getdtablesize() - 1; i >= 3; --i)
+ 		close (i);
+ 
+-	openlog (PACKAGE, LOG_PID, LOG_LOCAL0);
++	openlog (PACKAGE, LOG_PID, LOG_DAEMON);
+ 
+ 	options = xmalloc (sizeof (options_t));
+ 	memset (options, 0, sizeof (options_t));

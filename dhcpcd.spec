@@ -7,13 +7,14 @@ Summary(pt_BR.UTF-8):	Servidor DHCPC
 Summary(tr.UTF-8):	DHCPC sunucu süreçi (daemon)
 Name:		dhcpcd
 Version:	3.1.8
-Release:	3
+Release:	4
 License:	GPL v2
 Group:		Networking/Daemons
 #Source0Download: http://developer.berlios.de/project/filelist.php?group_id=4229
 Source0:	http://download.berlios.de/dhcpcd/%{name}-%{version}.tar.bz2
 # Source0-md5:	6332c695e28100acbb84730e7ff7f6e9
 Patch0:		%{name}-ntp-path.patch
+Patch1:		%{name}-daemon_facility.patch
 URL:		http://developer.berlios.de/projects/dhcpcd/
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -88,6 +89,7 @@ kira zamanını (lease time) yenilemeye çalışır.
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p1
 
 %build
 %{__make} \
