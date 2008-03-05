@@ -6,16 +6,16 @@ Summary(pl.UTF-8):	Klient (daemon) DHCP
 Summary(pt_BR.UTF-8):	Servidor DHCPC
 Summary(tr.UTF-8):	DHCPC sunucu süreçi (daemon)
 Name:		dhcpcd
-Version:	3.1.8
-Release:	4
+Version:	3.2.3
+Release:	1
 License:	GPL v2
 Group:		Networking/Daemons
 #Source0Download: http://developer.berlios.de/project/filelist.php?group_id=4229
-Source0:	http://download.berlios.de/dhcpcd/%{name}-%{version}.tar.bz2
-# Source0-md5:	6332c695e28100acbb84730e7ff7f6e9
+Source0:	http://roy.marples.name/dhcpcd/%{name}-%{version}.tar.bz2
+# Source0-md5:	f7b0b302307e27e00412d81c22df28b3
 Patch0:		%{name}-ntp-path.patch
 Patch1:		%{name}-daemon_facility.patch
-URL:		http://developer.berlios.de/projects/dhcpcd/
+URL:		http://roy.marples.name/dhcpcd
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_sbindir	/sbin
@@ -116,7 +116,6 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc ChangeLog
 %attr(755,root,root) %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/dhcpcd.sh
 %attr(755,root,root) %{_sbindir}/dhcpcd
 %dir %{_var}/lib/dhcpcd
