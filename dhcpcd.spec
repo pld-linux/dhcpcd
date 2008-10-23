@@ -6,15 +6,14 @@ Summary(pl.UTF-8):	Klient (daemon) DHCP
 Summary(pt_BR.UTF-8):	Servidor DHCPC
 Summary(tr.UTF-8):	DHCPC sunucu süreçi (daemon)
 Name:		dhcpcd
-Version:	3.2.3
+Version:	4.0.1
 Release:	1
 License:	GPL v2
 Group:		Networking/Daemons
 #Source0Download: http://developer.berlios.de/project/filelist.php?group_id=4229
-Source0:	http://roy.marples.name/dhcpcd/%{name}-%{version}.tar.bz2
-# Source0-md5:	f7b0b302307e27e00412d81c22df28b3
-Patch0:		%{name}-ntp-path.patch
-Patch1:		%{name}-daemon_facility.patch
+Source0:	http://roy.marples.name/downloads/dhcpcd/%{name}-%{version}.tar.bz2
+# Source0-md5:	4e84bcba4f5c9c2b558db1b1f22e6828
+Patch0:		%{name}-daemon_facility.patch
 URL:		http://roy.marples.name/dhcpcd
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -88,8 +87,7 @@ kira zamanını (lease time) yenilemeye çalışır.
 
 %prep
 %setup -q
-%patch0 -p1
-%patch1 -p1
+%patch0 -p0
 
 %build
 %{__make} \
@@ -97,7 +95,9 @@ kira zamanını (lease time) yenilemeye çalışır.
 	CFLAGS="%{rpmcflags}" \
 	LDFLAGS="%{rpmcflags} %{rpmldflags}" \
 	mandir=%{_mandir} \
-	sbindir=%{_sbindir}
+	sbindir=%{_sbindir} \
+	LIBEXECDIR=%{_libdir}/%{name} \
+	DBDIR=/var/lib/dhcpcd
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -106,17 +106,23 @@ install -d $RPM_BUILD_ROOT{%{_sysconfdir},/var/lib/dhcpcd}
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT \
 	mandir=%{_mandir} \
-	sbindir=%{_sbindir}
+	sbindir=%{_sbindir} \
+	LIBEXECDIR=%{_libdir}/%{name} \
+	DBDIR=/var/lib/dhcpcd
 
-# do not put executable bit here when installing
-cp -a dhcpcd.sh $RPM_BUILD_ROOT%{_sysconfdir}/dhcpcd.sh
+touch $RPM_BUILD_ROOT%{_sysconfdir}/dhcpcd.{enter-hook,exit-hook}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%attr(755,root,root) %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/dhcpcd.sh
+%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/*.conf
+%attr(755,root,root) %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/*-hook
 %attr(755,root,root) %{_sbindir}/dhcpcd
+%dir %{_libdir}/%{name}
+%dir %{_libdir}/%{name}/dhcpcd-hooks
+%attr(755,root,root) %{_libdir}/%{name}/dhcpcd-hooks/*
+%attr(755,root,root) %{_libdir}/%{name}/dhcpcd-run-hooks
 %dir %{_var}/lib/dhcpcd
-%{_mandir}/man8/dhcpcd.8*
+%{_mandir}/man[58]/dhcpcd*.[58]*
