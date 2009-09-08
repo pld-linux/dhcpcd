@@ -6,12 +6,12 @@ Summary(pl.UTF-8):	Klient (daemon) DHCP
 Summary(pt_BR.UTF-8):	Servidor DHCPC
 Summary(tr.UTF-8):	DHCPC sunucu süreçi (daemon)
 Name:		dhcpcd
-Version:	5.0.7
+Version:	5.1.0
 Release:	1
 License:	BSD
 Group:		Networking/Daemons
 Source0:	http://roy.marples.name/downloads/dhcpcd/%{name}-%{version}.tar.bz2
-# Source0-md5:	1c85790576deb6106879430b24e1fa9c
+# Source0-md5:	beb430d11f982881ce3d824643467490
 URL:		http://roy.marples.name/dhcpcd
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -87,14 +87,15 @@ kira zamanını (lease time) yenilemeye çalışır.
 %setup -q
 
 %build
+%configure
 %{__make} \
 	CC="%{__cc}" \
 	CFLAGS="%{rpmcflags}" \
 	LDFLAGS="%{rpmcflags} %{rpmldflags}" \
-	mandir=%{_mandir} \
-	sbindir=%{_sbindir} \
-	LIBEXECDIR=%{_libdir}/%{name} \
-	DBDIR=/var/lib/dhcpcd
+	mandir="%{_mandir}" \
+	SBINDIR="%{_sbindir}" \
+	LIBEXECDIR="%{_libdir}/%{name}" \
+	DBDIR="/var/lib/dhcpcd"
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -102,10 +103,10 @@ install -d $RPM_BUILD_ROOT{%{_sysconfdir},/var/lib/dhcpcd}
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT \
-	mandir=%{_mandir} \
-	sbindir=%{_sbindir} \
-	LIBEXECDIR=%{_libdir}/%{name} \
-	DBDIR=/var/lib/dhcpcd
+	mandir="%{_mandir}" \
+	SBINDIR="%{_sbindir}" \
+	LIBEXECDIR="%{_libdir}/%{name}" \
+	DBDIR="/var/lib/dhcpcd"
 
 touch $RPM_BUILD_ROOT%{_sysconfdir}/dhcpcd.{enter-hook,exit-hook}
 
