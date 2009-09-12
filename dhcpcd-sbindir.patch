@@ -1,0 +1,10 @@
+--- dhcpcd-5.1.0/configure.orig	2009-09-02 22:21:11.000000000 +0200
++++ dhcpcd-5.1.0/configure	2009-09-12 17:18:36.901775436 +0200
+@@ -16,6 +16,7 @@
+ 	--prefix) PREFIX=$var;;
+ 	--sysconfdir) SYSCONFDIR=$var;;
+ 	--bindir) BINDIR=$var;;
++	--sbindir) SBINDIR=$var;;
+ 	--libexecdir) LIBEXECDIR=$var;;
+ 	--statedir|--localstatedir) STATEDIR=$var;;
+ 	--dbdir) DBDIR=$var;;
