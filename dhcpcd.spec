@@ -6,12 +6,12 @@ Summary(pl.UTF-8):	Klient (daemon) DHCP
 Summary(pt_BR.UTF-8):	Servidor DHCPC
 Summary(tr.UTF-8):	DHCPC sunucu süreçi (daemon)
 Name:		dhcpcd
-Version:	5.1.1
+Version:	5.1.2
 Release:	1
 License:	BSD
 Group:		Networking/Daemons
 Source0:	http://roy.marples.name/downloads/dhcpcd/%{name}-%{version}.tar.bz2
-# Source0-md5:	7bb70885ffb1789634a20431ae4d5bbd
+# Source0-md5:	d906f25ec071dfb1ca53a1253a346853
 URL:		http://roy.marples.name/dhcpcd
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -60,11 +60,11 @@ aussi de renouveler le « lease time » selon les RFC1541 ou
 draft-ietf-dhc-dhcp-09.
 
 %description -l pl.UTF-8
-dhcpd jest implementacja klienta DHCP, opisaną w
+dhcpd jest implementacją klienta DHCP, opisaną w
 draft-ietf-dhc-dhcp-09 (kiedy nie podaje się opcji -r) oraz RFC1544
 (kiedy podaje się opcję -r).
 
-Pobiera on informację o komputerze (adres IP, maska sieci, adres
+Pobiera on informacje o komputerze (adres IP, maska sieci, adres
 rozgłoszeniowy itd.) i konfiguruje interfejs sieciowy maszyny, na
 której jest uruchomiony. Próbuje również odświeżyć czas przestoju
 zgodnie z RFC1541 oraz draft-ietf-dhc-dhcp-09.
