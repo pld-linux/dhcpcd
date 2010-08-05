@@ -6,13 +6,12 @@ Summary(pl.UTF-8):	Klient (daemon) DHCP
 Summary(pt_BR.UTF-8):	Servidor DHCPC
 Summary(tr.UTF-8):	DHCPC sunucu süreçi (daemon)
 Name:		dhcpcd
-Version:	5.2.6
+Version:	5.2.7
 Release:	1
 License:	BSD
 Group:		Networking/Daemons
 Source0:	http://roy.marples.name/downloads/dhcpcd/%{name}-%{version}.tar.bz2
-# Source0-md5:	9c5921516f16558a168815ad880d388f
-Patch0:		%{name}-configure.patch
+# Source0-md5:	1dcf377270a13cc774c9a26fc50453b5
 URL:		http://roy.marples.name/dhcpcd
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -87,7 +86,6 @@ kira zamanını (lease time) yenilemeye çalışır.
 
 %prep
 %setup -q
-%patch0 -p1
 
 %build
 %configure \
