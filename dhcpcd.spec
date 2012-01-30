@@ -12,7 +12,7 @@ License:	BSD
 Group:		Networking/Daemons
 Source0:	http://roy.marples.name/downloads/dhcpcd/%{name}-%{version}.tar.bz2
 # Source0-md5:	c80a13f536d295ac33a37c6a415a8d06
-URL:		http://roy.marples.name/dhcpcd
+URL:		http://roy.marples.name/projects/dhcpcd
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_sbindir	/sbin
