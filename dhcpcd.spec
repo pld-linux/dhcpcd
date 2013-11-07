@@ -6,12 +6,12 @@ Summary(pl.UTF-8):	Klient (daemon) DHCP
 Summary(pt_BR.UTF-8):	Servidor DHCPC
 Summary(tr.UTF-8):	DHCPC sunucu süreçi (daemon)
 Name:		dhcpcd
-Version:	6.0.5
+Version:	6.1.0
 Release:	1
 License:	BSD
 Group:		Networking/Daemons
 Source0:	http://roy.marples.name/downloads/dhcpcd/%{name}-%{version}.tar.bz2
-# Source0-md5:	a65ed99460a61f42c05f652c2eaafe7c
+# Source0-md5:	6070040c57492925af9ac6aed980de2a
 URL:		http://roy.marples.name/projects/dhcpcd
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -111,6 +111,8 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/*-hook
 %attr(755,root,root) %{_sbindir}/dhcpcd
 %dir %{_libdir}/%{name}
+%dir %{_libdir}/%{name}/dev
+%attr(755,root,root) %{_libdir}/%{name}/dev/udev.so
 %dir %{_libdir}/%{name}/dhcpcd-hooks
 %attr(755,root,root) %{_libdir}/%{name}/dhcpcd-hooks/*
 %attr(755,root,root) %{_libdir}/%{name}/dhcpcd-run-hooks
