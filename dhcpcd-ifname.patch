@@ -434,3 +434,108 @@ Index: if.h
  #define if_addaddress6(a) if_address6(a, 1)
  #define if_deladdress6(a) if_address6(a, -1)
 
+Index: if-linux.c
+==================================================================
+--- if-linux.c
++++ if-linux.c
+@@ -84,13 +84,12 @@
+ #include "ipv6nd.h"
+ 
+ #ifdef HAVE_NL80211_H
+ #include <linux/genetlink.h>
+ #include <linux/nl80211.h>
+-#else
++#endif
+ int if_getssid_wext(const char *ifname, uint8_t *ssid);
+-#endif
+ 
+ #define bpf_insn		sock_filter
+ #define BPF_SKIPTYPE
+ #define BPF_ETHCOOK		-ETH_HLEN
+ #define BPF_WHOLEPACKET	0x0fffffff /* work around buggy LPF filters */
+@@ -468,18 +467,15 @@
+ 	}
+ 	return 1;
+ }
+ 
+ static int
+-link_addr(struct dhcpcd_ctx *ctx, __unused struct interface *ifp,
+-    struct nlmsghdr *nlm)
++link_addr(struct dhcpcd_ctx *ctx, struct interface *ifp, struct nlmsghdr *nlm)
+ {
+ 	size_t len;
+ 	struct rtattr *rta;
+ 	struct ifaddrmsg *ifa;
+-	char ifn[IF_NAMESIZE + 1];
+-	struct interface *iface;
+ #ifdef INET
+ 	struct in_addr addr, net, dest;
+ #endif
+ #ifdef INET6
+ 	struct in6_addr addr6;
+@@ -492,11 +488,11 @@
+ 	if (len < sizeof(*ifa)) {
+ 		errno = EBADMSG;
+ 		return -1;
+ 	}
+ 	ifa = NLMSG_DATA(nlm);
+-	if (if_findindex(ctx, ifa->ifa_index) == NULL) {
++	if ((ifp = if_findindex(ctx, ifa->ifa_index)) == NULL) {
+ 		/* We don't know about the interface the address is for
+ 		 * so it's not really an error */
+ 		return 1;
+ 	}
+ 	rta = (struct rtattr *) IFA_RTA(ifa);
+@@ -508,11 +504,11 @@
+ 		dest.s_addr = INADDR_ANY;
+ 		inet_cidrtoaddr(ifa->ifa_prefixlen, &net);
+ 		while (RTA_OK(rta, len)) {
+ 			switch (rta->rta_type) {
+ 			case IFA_ADDRESS:
+-				if (iface->flags & IFF_POINTOPOINT) {
++				if (ifp->flags & IFF_POINTOPOINT) {
+ 					memcpy(&dest.s_addr, RTA_DATA(rta),
+ 					       sizeof(addr.s_addr));
+ 				}
+ 				break;
+ 			case IFA_LOCAL:
+@@ -520,11 +516,11 @@
+ 				       sizeof(addr.s_addr));
+ 				break;
+ 			}
+ 			rta = RTA_NEXT(rta, len);
+ 		}
+-		ipv4_handleifa(ctx, nlm->nlmsg_type, NULL, ifn,
++		ipv4_handleifa(ctx, nlm->nlmsg_type, NULL, ifp->name,
+ 		    &addr, &net, &dest);
+ 		break;
+ #endif
+ #ifdef INET6
+ 	case AF_INET6:
+@@ -536,11 +532,11 @@
+ 				       sizeof(addr6.s6_addr));
+ 				break;
+ 			}
+ 			rta = RTA_NEXT(rta, len);
+ 		}
+-		ipv6_handleifa(ctx, nlm->nlmsg_type, NULL, ifn,
++		ipv6_handleifa(ctx, nlm->nlmsg_type, NULL, ifp->name,
+ 		    &addr6, ifa->ifa_flags);
+ 		break;
+ #endif
+ 	}
+ 	return 1;
+@@ -1512,11 +1508,11 @@
+ 	if (ifp == NULL)
+ 		ifname = "all";
+ 	else if (own) {
+ 		if (if_disable_autolinklocal(ctx, ifp->index) == -1)
+ 			syslog(LOG_DEBUG, "%s: if_disable_autolinklocal: %m",
+-			    ifname);
++			    ifp->name);
+ 	}
+ 	if (ifp)
+ 		ifname = ifp->name;
+ 
+ 	snprintf(path, sizeof(path), "%s/%s/autoconf", prefix, ifname);
+
