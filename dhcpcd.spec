@@ -6,13 +6,12 @@ Summary(pl.UTF-8):	Klient (daemon) DHCP
 Summary(pt_BR.UTF-8):	Servidor DHCPC
 Summary(tr.UTF-8):	DHCPC sunucu süreçi (daemon)
 Name:		dhcpcd
-Version:	6.4.4
-Release:	3
+Version:	6.4.5
+Release:	1
 License:	BSD
 Group:		Networking/Daemons
 Source0:	http://roy.marples.name/downloads/dhcpcd/%{name}-%{version}.tar.bz2
-# Source0-md5:	8550f040075e447a0555e896e4dfc948
-Patch0:		%{name}-ifname.patch
+# Source0-md5:	4272a7de51bf0ba2b5d4f602e7fa5691
 URL:		http://roy.marples.name/projects/dhcpcd
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -87,11 +86,9 @@ kira zamanını (lease time) yenilemeye çalışır.
 
 %prep
 %setup -q
-%patch0 -p0
 
 %build
 %configure \
-	CPPFLAGS="%{rpmcppflags} -D_DEFAULT_SOURCE" \
 	--dbdir=%{_sharedstatedir}/dhcpcd
 
 %{__make}
