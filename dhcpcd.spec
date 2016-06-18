@@ -6,12 +6,12 @@ Summary(pl.UTF-8):	Klient (daemon) DHCP
 Summary(pt_BR.UTF-8):	Servidor DHCPC
 Summary(tr.UTF-8):	DHCPC sunucu süreçi (daemon)
 Name:		dhcpcd
-Version:	6.11.0
+Version:	6.11.1
 Release:	1
 License:	BSD
 Group:		Networking/Daemons
 Source0:	http://roy.marples.name/downloads/dhcpcd/%{name}-%{version}.tar.xz
-# Source0-md5:	8c1340a53fd7e56d32bb6fef6e1354ee
+# Source0-md5:	8acf2c0295f0c132a1e9f8060665b53d
 URL:		http://roy.marples.name/projects/dhcpcd
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -102,6 +102,9 @@ install -d $RPM_BUILD_ROOT{%{_sysconfdir},%{_sharedstatedir}/dhcpcd}
 
 touch $RPM_BUILD_ROOT%{_sysconfdir}/dhcpcd.{enter-hook,exit-hook}
 
+# our rc-scripts do wpa_supplicant job, so skip it
+rm -f $RPM_BUILD_ROOT%{_datadir}/%{name}/hooks/10-wpa_supplicant
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -118,8 +121,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/%{name}/dhcpcd-run-hooks
 %dir %{_datadir}/%{name}
 %dir %{_datadir}/%{name}/hooks
-# our rc-scripts do wpa_supplicant job, so skip it
-# %{_datadir}/%{name}/hooks/10-wpa_supplicant
 %{_datadir}/%{name}/hooks/15-timezone
 %{_datadir}/%{name}/hooks/29-lookup-hostname
 %dir %{_sharedstatedir}/dhcpcd
