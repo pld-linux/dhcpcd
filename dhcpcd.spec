@@ -6,12 +6,12 @@ Summary(pl.UTF-8):	Klient (daemon) DHCP
 Summary(pt_BR.UTF-8):	Servidor DHCPC
 Summary(tr.UTF-8):	DHCPC sunucu süreçi (daemon)
 Name:		dhcpcd
-Version:	7.0.1
+Version:	7.0.3
 Release:	1
 License:	BSD
 Group:		Networking/Daemons
 Source0:	http://roy.marples.name/downloads/dhcpcd/%{name}-%{version}.tar.xz
-# Source0-md5:	a14e6684331aea81d9fcb2decc69f2d0
+# Source0-md5:	45be894597340e255f302c3100dba1c0
 URL:		http://roy.marples.name/projects/dhcpcd
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
