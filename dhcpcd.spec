@@ -6,12 +6,12 @@ Summary(pl.UTF-8):	Klient (daemon) DHCP
 Summary(pt_BR.UTF-8):	Servidor DHCPC
 Summary(tr.UTF-8):	DHCPC sunucu süreçi (daemon)
 Name:		dhcpcd
-Version:	9.4.0
+Version:	9.4.1
 Release:	1
 License:	BSD
 Group:		Networking/Daemons
 Source0:	http://roy.marples.name/downloads/dhcpcd/%{name}-%{version}.tar.xz
-# Source0-md5:	c36715fc629bc40aa94aae06fa1724c2
+# Source0-md5:	2b2f46648bc96979f96127f0e0e07d9b
 URL:		http://roy.marples.name/projects/dhcpcd
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -123,5 +123,6 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_datadir}/%{name}/hooks
 %{_datadir}/%{name}/hooks/15-timezone
 %{_datadir}/%{name}/hooks/29-lookup-hostname
+%{_datadir}/%{name}/hooks/50-yp.conf
 %dir %{_sharedstatedir}/dhcpcd
 %{_mandir}/man?/dhcpcd*.*
