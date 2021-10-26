@@ -13,6 +13,11 @@ Group:		Networking/Daemons
 Source0:	http://roy.marples.name/downloads/dhcpcd/%{name}-%{version}.tar.xz
 # Source0-md5:	2b2f46648bc96979f96127f0e0e07d9b
 URL:		http://roy.marples.name/projects/dhcpcd
+BuildRequires:	linux-libc-headers
+BuildRequires:	pkgconfig
+BuildRequires:	tar >= 1:1.22
+BuildRequires:	udev-devel
+BuildRequires:	xz
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_sbindir	/sbin
