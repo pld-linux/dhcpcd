@@ -6,13 +6,14 @@ Summary(pl.UTF-8):	Klient (daemon) DHCP
 Summary(pt_BR.UTF-8):	Servidor DHCPC
 Summary(tr.UTF-8):	DHCPC sunucu süreçi (daemon)
 Name:		dhcpcd
-Version:	9.4.1
+Version:	10.3.2
 Release:	1
 License:	BSD
 Group:		Networking/Daemons
-Source0:	http://roy.marples.name/downloads/dhcpcd/%{name}-%{version}.tar.xz
-# Source0-md5:	2b2f46648bc96979f96127f0e0e07d9b
-URL:		http://roy.marples.name/projects/dhcpcd
+#Source0Download: https://github.com/NetworkConfiguration/dhcpcd/releases
+Source0:	https://github.com/NetworkConfiguration/dhcpcd/releases/download/v%{version}/%{name}-%{version}.tar.xz
+# Source0-md5:	e1c3be221969dbc45b806b7b374f3f92
+URL:		https://roy.marples.name/projects/dhcpcd
 BuildRequires:	linux-libc-headers
 BuildRequires:	pkgconfig
 BuildRequires:	tar >= 1:1.22
@@ -21,7 +22,6 @@ BuildRequires:	xz
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_sbindir	/sbin
-%define		_libexecdir	%{_libdir}/%{name}
 
 %description
 dhcpcd is an implementation of the DHCP client specified in
@@ -108,26 +108,30 @@ install -d $RPM_BUILD_ROOT{%{_sysconfdir},%{_sharedstatedir}/dhcpcd}
 touch $RPM_BUILD_ROOT%{_sysconfdir}/dhcpcd.{enter-hook,exit-hook}
 
 # our rc-scripts do wpa_supplicant job, so skip it
-rm -f $RPM_BUILD_ROOT%{_datadir}/%{name}/hooks/10-wpa_supplicant
+%{__rm} $RPM_BUILD_ROOT%{_datadir}/%{name}/hooks/10-wpa_supplicant
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/*.conf
-%attr(755,root,root) %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/*-hook
+%doc LICENSE README.md
+%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/dhcpcd.conf
+%attr(755,root,root) %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/dhcpcd.enter-hook
+%attr(755,root,root) %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/dhcpcd.exit-hook
 %attr(755,root,root) %{_sbindir}/dhcpcd
 %dir %{_libdir}/%{name}
 %dir %{_libdir}/%{name}/dev
-%attr(755,root,root) %{_libdir}/%{name}/dev/udev.so
-%dir %{_libdir}/%{name}/dhcpcd-hooks
-%attr(755,root,root) %{_libdir}/%{name}/dhcpcd-hooks/*
-%attr(755,root,root) %{_libdir}/%{name}/dhcpcd-run-hooks
+%{_libdir}/%{name}/dev/udev.so
+%attr(755,root,root) %{_libexecdir}/dhcpcd-run-hooks
+%dir %{_libexecdir}/dhcpcd-hooks
+%attr(755,root,root) %{_libexecdir}/dhcpcd-hooks/*
 %dir %{_datadir}/%{name}
 %dir %{_datadir}/%{name}/hooks
 %{_datadir}/%{name}/hooks/15-timezone
 %{_datadir}/%{name}/hooks/29-lookup-hostname
 %{_datadir}/%{name}/hooks/50-yp.conf
 %dir %{_sharedstatedir}/dhcpcd
-%{_mandir}/man?/dhcpcd*.*
+%{_mandir}/man5/dhcpcd.conf.5*
+%{_mandir}/man8/dhcpcd.8*
+%{_mandir}/man8/dhcpcd-run-hooks.8*
